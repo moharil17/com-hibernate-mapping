@@ -1,8 +1,8 @@
-package com.mvc.daoapi;
+package com.psm.daoapi;
 
 import java.util.List;
 
-import com.mvc.entities.UserBean;
+import com.psm.entities.UserBean;
 
 public interface DaoApi {
 

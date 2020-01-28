@@ -1,4 +1,4 @@
-package com.mvc.entities;
+package com.psm.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
