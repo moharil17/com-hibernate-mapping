@@ -1,4 +1,4 @@
-package com.mvc.daoimpl;
+package com.psm.daoimpl;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mvc.daoapi.DaoApi;
-import com.mvc.entities.UserBean;
+import com.psm.daoapi.DaoApi;
+import com.psm.entities.UserBean;
 
 @Transactional
 @Repository

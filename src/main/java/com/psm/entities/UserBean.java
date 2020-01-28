@@ -1,4 +1,4 @@
-package com.mvc.entities;
+package com.psm.entities;
 
 import java.util.Set;
 

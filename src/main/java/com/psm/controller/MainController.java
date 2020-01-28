@@ -1,4 +1,4 @@
-package com.mvc.controller;
+package com.psm.controller;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.mvc.daoapi.DaoApi;
+import com.psm.daoapi.DaoApi;
 
 @Controller
 public class MainController {
