@@ -6,5 +6,5 @@ import com.psm.entities.UserBean;
 
 public interface DaoApi {
 
-	public List<UserBean> users();
+	public UserBean getUserByUsername(String username);
 }
