@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.psm.daoapi.DaoApi;
+import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
 import com.psm.serviceimpl.CustomUserDetailsService;
 
@@ -35,6 +36,23 @@ public class DaoImpl implements DaoApi {
 			return list.get(0);
 		}
 		return null;
+	}
+	
+	public List<UserBean> users() {
+		List list = sessionFactory.getCurrentSession().createQuery("from UserBean").list();
+		return list;
+	}
+
+	public boolean addStudent(StudentBean bean) {
+
+		try {
+			sessionFactory.getCurrentSession().persist(bean);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 }
