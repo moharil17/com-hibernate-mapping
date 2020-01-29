@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.psm.daoapi.DaoApi;
 import com.psm.entities.StudentBean;
+import com.psm.entities.UserBean;
 
 @Controller
 public class MainController {
@@ -25,7 +26,7 @@ public class MainController {
 	
 	@GetMapping("/enquiery")
 	public String getenquieryPage() {
-
+		users(12);
 		return "enquiery";
 	}
 	
@@ -43,8 +44,12 @@ public class MainController {
 	  }
 	  return "failure";
   }
-	
-	
+  
+  public void users(int i) {
+	  System.out.println("I am called... "+i);
+	 System.out.println("\n\n\n"+dao.users());
+  }
+	//hoil ka asa....ho kar run
 }
 
 

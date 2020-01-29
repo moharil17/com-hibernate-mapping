@@ -38,6 +38,14 @@ public class UserBean {
 				joinColumns= {@JoinColumn(name="user_id")},
 				inverseJoinColumns= {@JoinColumn(name="role_id")})
 	private Set<UserRole> roles;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="user_menu_items_mappings", 
+	joinColumns= {@JoinColumn(name="user_id")},
+	inverseJoinColumns= {@JoinColumn(name="menu_id")})
+	private Set<MenuItemsBean> menuItems;
+	
+	
 	public int getUser_id() {
 		return user_id;
 	}
