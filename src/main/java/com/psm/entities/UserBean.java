@@ -34,7 +34,7 @@ public class UserBean {
 	private String userEmail;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="user_roles_mapping", 
+	@JoinTable(name="user_roles_mappings", 
 				joinColumns= {@JoinColumn(name="user_id")},
 				inverseJoinColumns= {@JoinColumn(name="role_id")})
 	private Set<UserRole> roles;
@@ -76,6 +76,14 @@ public class UserBean {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
 	}
 
 	@Override

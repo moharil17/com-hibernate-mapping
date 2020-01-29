@@ -14,11 +14,16 @@ public class MainController {
 	@Autowired
 	DaoApi dao;
 	
-	@GetMapping("/users")
-	public String getUsers() {
-		List list =dao.users();
-		System.out.println(list);
-		return "users";
+	@GetMapping("/homePage")
+	public String getHomePage() {
+
+		return "homePage";
+	}
+	
+	@GetMapping("/enquiery")
+	public String getenquieryPage() {
+
+		return "enquiery";
 	}
 	
 }

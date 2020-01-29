@@ -28,8 +28,8 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 
 			http
 	        .authorizeRequests()
-		    .antMatchers("/homePage").access("hasRole('ROLE_USER')")
-		 //   .antMatchers("/myProfile").hasRole("USER")
+		    .antMatchers("/homePage").access("hasRole('ROLE_1')")
+		    .antMatchers("/enquiery").hasRole("1")
 		 //   .antMatchers("/Users_Details_report").hasRole("DBA")
 		 //   .antMatchers("/reportsPage").hasAnyRole("ADMIN","DBA")
 		 //   .antMatchers("/viewUsers").access("hasRole('ROLE_ADMIN')")
@@ -38,8 +38,8 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    .formLogin()//.loginPage("/login")
 		    .defaultSuccessUrl("/homePage")
 		    .failureUrl("/login?error")
-		    .usernameParameter("email")
-		    .passwordParameter("pswd")
+		    .usernameParameter("userUserName")
+		    .passwordParameter("userPassword")
 	        .and()
 		    //logout
 		    .logout()
