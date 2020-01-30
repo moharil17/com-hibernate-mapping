@@ -26,7 +26,7 @@ public class MainController {
 	
 	@GetMapping("/enquiery")
 	public String getenquieryPage() {
-		users(12);
+		users(12); 
 		return "enquiery";
 	}
 	

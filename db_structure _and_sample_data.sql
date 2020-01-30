@@ -94,12 +94,26 @@ CREATE TABLE IF NOT EXISTS `user_menu_items_mappings` (
   CONSTRAINT `FK_user_menu_items_mappings_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table school_db.user_menu_items_mappings: ~0 rows (approximately)
+-- Dumping data for table school_db.user_menu_items_mappings: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_menu_items_mappings` DISABLE KEYS */;
 REPLACE INTO `user_menu_items_mappings` (`user_id`, `menu_id`) VALUES
 	(1, 1),
 	(3, 2);
 /*!40000 ALTER TABLE `user_menu_items_mappings` ENABLE KEYS */;
+
+-- Dumping structure for table school_db.user_menu_mappings
+CREATE TABLE IF NOT EXISTS `user_menu_mappings` (
+  `user_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`menu_id`),
+  KEY `FK52f5qycpucisp9uvfl8op9xkw` (`menu_id`),
+  CONSTRAINT `FKn4f4adnqa8stvee9bq5o0i1ev` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FK52f5qycpucisp9uvfl8op9xkw` FOREIGN KEY (`menu_id`) REFERENCES `menu_items` (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table school_db.user_menu_mappings: ~0 rows (approximately)
+/*!40000 ALTER TABLE `user_menu_mappings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_menu_mappings` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.user_roles
 CREATE TABLE IF NOT EXISTS `user_roles` (
