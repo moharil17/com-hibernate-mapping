@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -38,6 +37,7 @@ public class UserBean {
 				joinColumns= {@JoinColumn(name="user_id")},
 				inverseJoinColumns= {@JoinColumn(name="role_id")})
 	private Set<UserRole> roles;
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -91,7 +91,5 @@ public class UserBean {
 		return "UserBean [user_id=" + user_id + ", userName=" + userName + ", userPassword=" + userPassword
 				+ ", userUserName=" + userUserName + ", userEmail=" + userEmail + ", roles=" + roles + "]";
 	}
-	
-	
 
 }
