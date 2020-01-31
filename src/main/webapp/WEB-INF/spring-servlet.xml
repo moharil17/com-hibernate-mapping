@@ -17,7 +17,7 @@ http://www.springframework.org/schema/task/spring-task.xsd
 http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-<mvc:resources mapping="/resources/**" location="/resources/"/>
+<mvc:resources mapping="/static-resources/**" location="/static-resources/"/>
 
 	<!-- Enable auto wire -->
 	<context:annotation-config />

@@ -29,14 +29,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		log.info(username);
 		UserBean user = dao.getUserByUsername(username);
 
 		if (user == null) {
 			log.info("***User not found***");
 			throw new UsernameNotFoundException("Username not found");
 		}
-		
+		log.info(user.getRoles().iterator().next().getMenuItems().iterator().next());
 		List<GrantedAuthority> authorities = getGrantedAuthorities(user.getRoles());
 		boolean isEnabled = true;
 		return new User(user.getUserEmail(), user.getUserPassword(), isEnabled,

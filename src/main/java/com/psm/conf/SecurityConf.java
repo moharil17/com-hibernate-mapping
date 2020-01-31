@@ -28,6 +28,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 
 			http
 	        .authorizeRequests()
+	        .antMatchers("/static-resources/**").permitAll()
 		    .antMatchers("/homePage").access("hasRole('ROLE_1')")
 		    .antMatchers("/enquiery").hasRole("1")
 		 //   .antMatchers("/Users_Details_report").hasRole("DBA")
@@ -45,9 +46,9 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    .logout()
 		    .logoutSuccessUrl("/login?logout")
 		    .invalidateHttpSession(true)
-	        .and()
-		    .exceptionHandling()
-		    .accessDeniedPage("/accessDenied")
+	      //  .and()
+		  //  .exceptionHandling()
+		   // .accessDeniedPage("/accessDenied")
 		    .and().csrf();
 /*	        .and()
 		    //session management
