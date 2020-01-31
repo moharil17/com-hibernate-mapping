@@ -37,6 +37,7 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 
 -- Dumping structure for table school_db.menu_items
 DROP TABLE IF EXISTS `menu_items`;
+
 CREATE TABLE IF NOT EXISTS `menu_items` (
   `menu_id` int(11) NOT NULL,
   `menu_name` varchar(50) NOT NULL,
