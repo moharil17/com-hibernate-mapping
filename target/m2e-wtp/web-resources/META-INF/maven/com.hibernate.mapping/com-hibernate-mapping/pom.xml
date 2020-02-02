@@ -8,18 +8,13 @@
   <name>com-hibernate-mapping Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
-
  <properties>
 	        <springframework.version>4.3.4.RELEASE</springframework.version>
-	        
+	        <springsecurity.version>4.2.0.RELEASE</springsecurity.version>
 	        <hibernate.version>5.0.5.Final</hibernate.version>
 	     </properties>
-	     
-	     
-	     
   
   <dependencies>
-  
   
    <!-- junit -->
 		<dependency>
@@ -98,6 +93,28 @@
 			<version>0.6.2</version>
 		</dependency>
 		
+		<!-- spring security -->
+
+			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-web</artifactId>
+			    <version>${springsecurity.version}</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-config</artifactId>
+			    <version>${springsecurity.version}</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-taglibs</artifactId>
+			    <version>${springsecurity.version}</version>
+			</dependency>
 		
 <!-- Hibernate -->
  		<dependency>

@@ -1,4 +1,4 @@
-package com.mvc.entities;
+package com.psm.entities;
 
 import java.util.Set;
 
@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -34,10 +33,11 @@ public class UserBean {
 	private String userEmail;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="user_roles_mapping", 
+	@JoinTable(name="user_roles_mappings", 
 				joinColumns= {@JoinColumn(name="user_id")},
 				inverseJoinColumns= {@JoinColumn(name="role_id")})
 	private Set<UserRole> roles;
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -78,12 +78,18 @@ public class UserBean {
 		this.userEmail = userEmail;
 	}
 
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString() {
 		return "UserBean [user_id=" + user_id + ", userName=" + userName + ", userPassword=" + userPassword
 				+ ", userUserName=" + userUserName + ", userEmail=" + userEmail + ", roles=" + roles + "]";
 	}
-	
-	
 
 }
