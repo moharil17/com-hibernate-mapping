@@ -10,12 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.psm.daoapi.DaoApi;
 import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
-import com.psm.serviceimpl.CustomUserDetailsService;
 
 @Transactional
 @Repository
@@ -40,7 +38,6 @@ public class DaoImpl implements DaoApi {
 		log.info(11);
 		if(list.size() > 0) {
 			log.info(22);
-			log.info(list.get(0).getRoles().iterator().next().getMenuItems().iterator().next());
 			return list.get(0);
 		}
 		return null;
@@ -63,7 +60,6 @@ public class DaoImpl implements DaoApi {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 }
