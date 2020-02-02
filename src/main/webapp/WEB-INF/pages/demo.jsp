@@ -14,7 +14,7 @@
 <!-- 	<%
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	%> -->
-	<div class="container-fluid">
+	<div class="container">
 
 	</div>
 </body>

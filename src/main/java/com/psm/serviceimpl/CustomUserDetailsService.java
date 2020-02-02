@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			log.info("***User not found***");
 			throw new UsernameNotFoundException("Username not found");
 		}
-		log.info(user.getRoles().iterator().next().getMenuItems().iterator().next());
+
 		List<GrantedAuthority> authorities = getGrantedAuthorities(user.getRoles());
 		boolean isEnabled = true;
 		return new User(user.getUserEmail(), user.getUserPassword(), isEnabled,
