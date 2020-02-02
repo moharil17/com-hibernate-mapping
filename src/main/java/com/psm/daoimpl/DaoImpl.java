@@ -43,7 +43,8 @@ public class DaoImpl implements DaoApi {
 			log.info(list.get(0).getRoles().iterator().next().getMenuItems().iterator().next());
 			return list.get(0);
 		}
-		return null;
+		///return null;
+		return new UserBean();
 	}
 	
 	public List<UserBean> users() {
