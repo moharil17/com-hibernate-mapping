@@ -24,11 +24,11 @@ public class UserRole {
 	@Column(name = "role_name")
 	private String roleName;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+/*	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="roles_menu_items_mappings", 
 				joinColumns= {@JoinColumn(name="role_id")},
 				inverseJoinColumns= {@JoinColumn(name="menu_id")})
-	private Set<MenuItemsBean> menuItems;
+	private Set<MenuItemsBean> menuItems;*/
 
 	public int getRoleId() {
 		return roleId;
@@ -44,14 +44,6 @@ public class UserRole {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}
-
-	public Set<MenuItemsBean> getMenuItems() {
-		return menuItems;
-	}
-
-	public void setMenuItems(Set<MenuItemsBean> menuItems) {
-		this.menuItems = menuItems;
 	}
 
 	@Override
