@@ -53,6 +53,12 @@ public class MainController {
 	  return new ResponseEntity<Object>(HttpStatus.OK);
   }
 
+/*	@ExceptionHandler(Exception.class)
+	public String handleError(HttpServletRequest req, Exception ex) {
+		log.error("Request: " + req.getRequestURL() + " raised " + ex);
+
+		return "homePage";
+	} */
 }
 
 
