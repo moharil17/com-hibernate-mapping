@@ -11,7 +11,7 @@
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	%>
 	<div class="container">
-		<form action="login" method="POST">
+		<form action="loginPage" method="POST">
 		
 			<fieldset class="form-group">
 				<label for="userUserName">First Username</label> <input type="text"

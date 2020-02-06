@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		List<GrantedAuthority> authorities = getGrantedAuthorities(user.getRoles());
 		boolean isEnabled = true;
-		return new User(user.getUserEmail(), user.getUserPassword(), isEnabled,
+		return new User(user.getUserUserName(), user.getUserPassword(), isEnabled,
 				true, true, true, authorities);
 	}
 

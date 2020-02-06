@@ -6,9 +6,10 @@
 <title>Enquiry</title>
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
-
+<script src="${pageContext.request.contextPath}/static-resources/js-for-pages/enquiry.js"></script>
 </head>
 <body>
+<input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
  	<%
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	%>
@@ -28,46 +29,46 @@
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form action="enquiery" method="post" modelAttribute="EnquiryBean" id="enquiryForm">
 									<div class="form-row">
 										<div class="form-group col-md-5">
 											<label for="firstName">First Name</label> <input type="text"
-												class="form-control-sm" id="firstName" path="firstName"
+												class="form-control-sm" id="firstName" name="firstName"
 												placeholder="">
 										</div>
 										<div class="form-group col-md-5">
 											<label for="lastName">Last Name</label> <input type="text"
-												class="form-control-sm" id="lastName" path="lastName">
+												class="form-control-sm" id="lastName" name="lastName">
 										</div>
 									</div>
 									<div class="form-row">
 										<div class="form-group col-md-3">
 											<label for="gender">Gender</label> <select id="gender"
-												class="form-control-sm" path="gender">
+												class="form-control-sm" name="gender">
 												<option>Male</option>
 												<option>Female</option>
 											</select>
 										</div>
 										<div class="form-group col-md-5">
 											<label for="mobileNo">Mobile No.</label> <input type="text"
-												class="form-control-sm" id="mobileNo" path="mobileNo"
+												class="form-control-sm" id="mobileNo" name="mobileNo"
 												placeholder="">
 										</div>
 										<div class="form-group col-md-4">
 											<label for="emailId">Email ID</label> <input type="email"
-												class="form-control-sm" id="emailId" path="emailId">
+												class="form-control-sm" id="emailId" name="emailId">
 										</div>
 									</div>
 									<div class="form-row">
 										<div class="form-group col-md-5">
 											<label for="prevYrMarks">Prev. Year Score</label> <input
 												type="text" class="form-control-sm" id="prevYrMarks"
-												path="prevYrMarks" placeholder="">
+												name="prevYrMarks" placeholder="">
 										</div>
 										<div class="form-group col-md-3"></div>
 										<div class="form-group col-md-4">
 											<label for="">Enquiry for Class</label> <select
-												id="admssnToClass" path="admssnToClass" class="form-control-sm">
+												id="admssnToClass" name="admssnToClass" class="form-control-sm">
 												<option selected>1st</option>
 												<option>2nd</option>
 											</select>
@@ -80,18 +81,18 @@
 									<div class="form-row">
 									<div class="form-group col-md-3">
 											<label for="state">State</label> <select id="state"
-												class="form-control-sm" path="state">
+												class="form-control-sm" name="state">
 												<option selected>Maharashtra</option>
 												<option>...</option>
 											</select>
 										</div>
 										<div class="form-group col-md-5">
 											<label for="city">City</label> <input type="text"
-												class="form-control-sm" id="city" path="city">
+												class="form-control-sm" id="city" name="city">
 										</div>
 										<div class="form-group col-md-4">
 											<label for="zip">Zip</label> <input type="text"
-												class="form-control-sm" id="zip" path="zip">
+												class="form-control-sm" id="zip" name="zip">
 										</div>
 									</div>
 									<div class="form-group">
@@ -102,7 +103,7 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-									<button type="submit" class="btn btn-success">Save</button>
+									<button type="submit" class="btn btn-success" id="enquirySubBtn">Save</button>
 									</div>
 								</form>
 							</div>
