@@ -110,6 +110,7 @@ public class DaoImpl implements DaoApi {
 			bean.setCreated_by(loggedUserId);
 		sessionFactory.getCurrentSession().save(bean);
 		return true;
+		
 		}
 		catch(Exception  e) {
 			e.printStackTrace();
