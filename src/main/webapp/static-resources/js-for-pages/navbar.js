@@ -8,11 +8,6 @@ $("navbar-nav").ready(function() {
 						console.log("inside ajax response 200");
 						console.log(xhr);
 						
-						var array = [
-							   {link: "homePage", name: "Home"},
-							   {link: "enquiery", name: "Enquiry"}
-							];
-						
 						$.each(xhr, function(id, value, key) {
 							console.log("i a here");
 							var n = $("nav ul").append('<li class="nav-item"><a class="nav-link" href="'+ value.menuName + '">'+ value.menuUrl+ '</a></li>');

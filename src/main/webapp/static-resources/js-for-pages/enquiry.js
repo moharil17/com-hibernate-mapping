@@ -28,7 +28,7 @@ $(document).ready(function(){
 			            contentType: false,
 			            cache: false,
 			            success: function (data) {
-
+			            	$('.modal').modal('hide');
 			                alert("SUCCESS : ", data);
 			            },
 			            error: function (e) {
