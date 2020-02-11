@@ -17,7 +17,11 @@ $(document).ready(function() {
 				 
 				// Create an FormData object 
 			        var data = new FormData(form);
+
 			        //adding sec token into data obj
+
+			        var secToken = $('#csrf').val();
+
 			        data.append("_csrf", $('#csrf').val());
 			        console.log(data);
 			        
@@ -29,6 +33,7 @@ $(document).ready(function() {
 			            contentType: false,
 			            success: function (data) {
 			            	console.log("In success "+data);
+
 			            	$('.modal').modal('hide');
 			                alert("SUCCESS : ", data);
 			            },

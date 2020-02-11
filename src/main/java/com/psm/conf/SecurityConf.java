@@ -50,6 +50,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    .invalidateHttpSession(true)
 	      //  .and()
 		  //  .exceptionHandling()
+		    
 		   // .accessDeniedPage("/accessDenied")
 		    .and().csrf().disable();
 /*	        .and()

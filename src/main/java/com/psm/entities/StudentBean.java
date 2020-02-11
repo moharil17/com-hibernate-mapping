@@ -9,26 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student")
+@Table(name = "student")
 public class StudentBean {
 
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	@Column(name="fname")
+
+	@Column(name = "fname")
 	private String fName;
-	
-	@Column(name="lname")
+
+	@Column(name = "lname")
 	private String lName;
-	
-	@Column(name="mobile")
+
+	@Column(name = "mobile")
 	private String mobile;
-	
-	@Column(name="email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="dob")
+
+	@Column(name = "dob")
 	private Date date;
 
 	public int getId() {
@@ -84,8 +84,5 @@ public class StudentBean {
 		return "StudentBean [id=" + id + ", fName=" + fName + ", lName=" + lName + ", mobile=" + mobile + ", email="
 				+ email + ", date=" + date + "]";
 	}
-	
-	
-	
 
 }

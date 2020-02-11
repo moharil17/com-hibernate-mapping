@@ -2,7 +2,7 @@ package com.psm.controller;
 
 import java.util.Calendar;
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -26,7 +26,10 @@ import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
 import com.psm.serviceapi.ServiceApi;
 
+import com.psm.serviceapi.ServiceApi;
+
 @Controller
+@SuppressWarnings("unchecked")
 public class MainController {
 
 	protected final static Log log = LogFactory.getLog(MainController.class);
@@ -37,6 +40,7 @@ public class MainController {
 	@GetMapping("/homePage")
 	public String getHomePage() {
 
+		getEnquieryPage();
 		return "homePage";
 	}
 
@@ -52,10 +56,10 @@ public class MainController {
 		return "enquiery";
 	}
 
+	// save enquiery form using ajax
 	@PostMapping("/enquiery")
-	public ResponseEntity<String> createNewEnquirye(@ModelAttribute EnquiryBean bean) {
-		
-		//adding current date time to bean
+	public ResponseEntity<String> enquiryeDetails(@ModelAttribute EnquiryBean bean) {
+
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		bean.setDate(date);
 		// to save role id
@@ -94,6 +98,7 @@ public class MainController {
 		String userName = authentication.getName();
 		log.info(userName);
 		authentication.getCredentials();
+
 		List<String> list = (List) authentication.getAuthorities();
 
 		System.out.println(list);
@@ -106,5 +111,5 @@ public class MainController {
 
 		return "homePage";
 	}
-	 
+
 }

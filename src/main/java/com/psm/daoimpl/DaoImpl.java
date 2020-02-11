@@ -19,6 +19,7 @@ import com.psm.entities.UserBean;
 
 @Transactional
 @Repository
+@SuppressWarnings("unchecked")
 public class DaoImpl implements DaoApi {
 
 	@Autowired
@@ -48,7 +49,6 @@ public class DaoImpl implements DaoApi {
 	}
 
 	public List<UserBean> users() {
-		@SuppressWarnings("unchecked")
 		Query q = sessionFactory.getCurrentSession().createQuery("from UserBean where user_id=:id");
 		q.setInteger("id", 1);
 		List<UserBean> l = q.list();
@@ -102,20 +102,20 @@ public class DaoImpl implements DaoApi {
 		log.info("here");
 		try {
 			String loggedUserName = bean.getUserName();
-		   log.info(loggedUserName);
-			Query query = sessionFactory.getCurrentSession().createQuery("select u.user_id from UserBean u where u.userUserName=:loggedUserName");
+
+			log.info(loggedUserName);
+			Query query = sessionFactory.getCurrentSession()
+					.createQuery("select u.user_id from UserBean u where u.userUserName=:loggedUserName");
 			query.setParameter("loggedUserName", loggedUserName);
-			int loggedUserId =(Integer) query.uniqueResult();
-			log.info("id fetchede: "+loggedUserId);
+			int loggedUserId = (Integer) query.uniqueResult();
+			log.info("id fetchede: " + loggedUserId);
 			bean.setCreated_by(loggedUserId);
-		sessionFactory.getCurrentSession().save(bean);
-		return true;
-		
-		}
-		catch(Exception  e) {
+			sessionFactory.getCurrentSession().save(bean);
+			return true;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
 }

@@ -60,7 +60,8 @@
 									<div class="form-row">
 										<div class="form-group col-md-5">
 											<label for="prevYrMarks">Prev. Year Score</label> <input
-												type="text" class="form-control-sm" id="prevYrMarks" name="prevYrMarks">
+												type="text" class="form-control-sm" id="prevYrMarks"
+												name="prevYrMarks" placeholder="">
 										</div>
 										<div class="form-group col-md-3"></div>
 										<div class="form-group col-md-4">
@@ -107,7 +108,6 @@
 					</div>
 				</div>
 			</div>
-
 
 		</div>
 	</div>
