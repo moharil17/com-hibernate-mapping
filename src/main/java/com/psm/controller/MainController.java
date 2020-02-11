@@ -1,14 +1,8 @@
 package com.psm.controller;
 
-import java.security.Principal;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
-
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,14 +19,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.psm.daoapi.DaoApi;
-import com.psm.daoimpl.DaoImpl;
+
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
-import com.psm.entities.UserBean;
+
 import com.psm.serviceapi.ServiceApi;
 
 @Controller
+@SuppressWarnings("unchecked")
 public class MainController {
 
 	protected final static Log log = LogFactory.getLog(MainController.class);
@@ -45,7 +40,7 @@ public class MainController {
 	@GetMapping("/homePage")
 	public String getHomePage() {
 
-		getenquieryPage();
+		getEnquieryPage();
 		return "homePage";
 	}
 
@@ -56,13 +51,14 @@ public class MainController {
 	}
 
 	@GetMapping("/enquiery")
-	public String getenquieryPage() {
+	public String getEnquieryPage() {
 
 		return "enquiery";
 	}
 
+	// save enquiery form using ajax
 	@PostMapping("/enquiery")
-	public ResponseEntity<String> EnquiryeDetails(@ModelAttribute EnquiryBean bean) {
+	public ResponseEntity<String> enquiryeDetails(@ModelAttribute EnquiryBean bean) {
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		bean.setDate(date);
 		// to save role id
@@ -91,8 +87,9 @@ public class MainController {
 		return "failure";
 	}
 
+	// role based navigation menu using ajax call
 	@GetMapping("/getNavigationMenuItems")
-	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems(Authentication authentication) {
+	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
 		List<String> list = loggedUserInfo();
 
@@ -104,22 +101,25 @@ public class MainController {
 		return list1;
 	}
 
+	// fetch logged in user using spring security
 	public List<String> loggedUserInfo() {
 		Authentication authentication;
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userName = authentication.getName();
 		log.info(userName);
 		authentication.getCredentials();
+		
 		List<String> list = (List) authentication.getAuthorities();
 
 		System.out.println(list);
 		return list;
 	}
 
-	/*
-	 * @ExceptionHandler public String exceptionHandlerMethod(HttpServletRequest
-	 * req, Exception e) { log.info("Requsest " + req.getRequestURI() + e);
-	 * 
-	 * return "homePage"; }
-	 */
+	@ExceptionHandler
+	public String exceptionHandlerMethod(HttpServletRequest req, Exception e) {
+		log.info("Requsest " + req.getRequestURI() + e);
+
+		return "homePage";
+	}
+
 }

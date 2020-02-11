@@ -40,7 +40,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    //login
 		    .formLogin().loginPage("/loginPage")
 		    .defaultSuccessUrl("/homePage")
-		    .failureUrl("/login?error")
+		    .failureUrl("/loginPage")
 		    .usernameParameter("userUserName")
 		    .passwordParameter("userPassword")
 	        .and()
@@ -50,6 +50,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    .invalidateHttpSession(true)
 	      //  .and()
 		  //  .exceptionHandling()
+		    
 		   // .accessDeniedPage("/accessDenied")
 		    .and().csrf().disable();
 /*	        .and()

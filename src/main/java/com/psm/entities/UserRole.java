@@ -18,17 +18,19 @@ public class UserRole {
 
 	@Id
 	@GeneratedValue
-	@Column(name="role_id")
+	@Column(name = "role_id")
 	private int roleId;
 
 	@Column(name = "role_name")
 	private String roleName;
 
-/*	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="roles_menu_items_mappings", 
-				joinColumns= {@JoinColumn(name="role_id")},
-				inverseJoinColumns= {@JoinColumn(name="menu_id")})
-	private Set<MenuItemsBean> menuItems;*/
+	/*
+	 * @ManyToMany(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinTable(name="roles_menu_items_mappings", joinColumns=
+	 * {@JoinColumn(name="role_id")}, inverseJoinColumns=
+	 * {@JoinColumn(name="menu_id")}) private Set<MenuItemsBean> menuItems;
+	 */
 
 	public int getRoleId() {
 		return roleId;
@@ -50,6 +52,5 @@ public class UserRole {
 	public String toString() {
 		return "UserRole [roleId=" + roleId + ", roleName=" + roleName + "]";
 	}
-	
-	
+
 }

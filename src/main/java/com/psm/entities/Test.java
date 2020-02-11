@@ -19,6 +19,10 @@ public class Test {
 		String str = " ";
 		System.out.println(str.length());
 		
+		String str1 = "ROLE_1";
+		str1 = str1.substring(str1.indexOf('_')+1,str1.length());
+		System.out.println(str1);
+		
 	}
 
 }

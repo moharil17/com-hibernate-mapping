@@ -12,64 +12,65 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="enquiery_info")
+@Table(name = "enquiery_info")
 public class EnquiryBean {
-	
+
 	@Id
 	@GeneratedValue
-	
+
 	private int enquiry_id;
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column(name="gender")
+
+	@Column(name = "gender")
 	private String gender;
-	
-	@Column(name="mobile_no")
+
+	@Column(name = "mobile_no")
 	private String mobileNo;
-	
-	@Column(name="email_id")
+
+	@Column(name = "email_id")
 	private String emailId;
-	
-	@Column(name="prev_Year_Marks")
+
+	@Column(name = "prev_Year_Marks")
 	private float prevYrMarks;
-	
-	@Column(name="admission_To_Class")
+
+	@Column(name = "admission_To_Class")
 	private int admssnToClass;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	private String city;
-	
-	@Column(name="state")
+
+	@Column(name = "state")
 	private String state;
-	
-	@Column(name="Zip")
+
+	@Column(name = "Zip")
 	private String zip;
-	
-	 @Column(name="enquiry_Date",columnDefinition="TIMESTAMP")      
-	 Date date;
-@Column(name="created_by")
-private int created_by;
 
-private String userName;
+	@Column(name = "enquiry_Date", columnDefinition = "TIMESTAMP")
+	Date date;
+	@Column(name = "created_by")
+	private int created_by;
+
+	private String userName;
+
 	public String getUserName() {
-	return userName;
-}
+		return userName;
+	}
 
-public void setUserName(String userName) {
-	this.userName = userName;
-}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public int getCreated_by() {
-	return created_by;
-}
+		return created_by;
+	}
 
-public void setCreated_by(int created_by) {
-	this.created_by = created_by;
-}
+	public void setCreated_by(int created_by) {
+		this.created_by = created_by;
+	}
 
 	public int getEnquiry_id() {
 		return enquiry_id;
@@ -175,6 +176,4 @@ public void setCreated_by(int created_by) {
 				+ zip + ", startDateTime=" + date + "]";
 	}
 
-	
-	
 }

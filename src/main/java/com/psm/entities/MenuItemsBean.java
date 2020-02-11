@@ -7,23 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="menu_items")
+@Table(name = "menu_items")
 public class MenuItemsBean {
 
 	@Id
 	@GeneratedValue
 	private int menu_id;
-	
-	@Column(name="menu_name")
+
+	@Column(name = "menu_name")
 	private String menuName;
-	
-	@Column(name="menu_url")
+
+	@Column(name = "menu_url")
 	private String menuUrl;
 
-	
 	public MenuItemsBean() {
-		
+
 	}
+
 	public MenuItemsBean(String menuName, String menuUrl) {
 		super();
 		this.menuName = menuName;
@@ -58,6 +58,5 @@ public class MenuItemsBean {
 	public String toString() {
 		return "MenuItemsBean [menu_id=" + menu_id + ", menuName=" + menuName + ", menuUrl=" + menuUrl + "]";
 	}
-	
-	
+
 }

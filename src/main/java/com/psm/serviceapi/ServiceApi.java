@@ -10,8 +10,12 @@ import com.psm.entities.UserBean;
 public interface ServiceApi {
 
 	public UserBean getUserByUsername(String username);
+
 	public List<UserBean> users();
+
 	public boolean addStudent(StudentBean bean);
+
 	public List<MenuItemsBean> getUrlByRoles(List<String> roleId);
+
 	public boolean saveEnquiryDetails(EnquiryBean bean);
 }

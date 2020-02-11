@@ -33,9 +33,8 @@ public class UserBean {
 	private String userEmail;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="user_roles_mappings", 
-				joinColumns= {@JoinColumn(name="user_id")},
-				inverseJoinColumns= {@JoinColumn(name="role_id")})
+	@JoinTable(name = "user_roles_mappings", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_id") })
 	private Set<UserRole> roles;
 
 	public int getUser_id() {

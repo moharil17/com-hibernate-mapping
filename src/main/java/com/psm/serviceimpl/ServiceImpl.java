@@ -45,30 +45,19 @@ public class ServiceImpl implements ServiceApi {
 		Iterator i = role.iterator();
 		while (i.hasNext()) {
 			String str = i.next().toString();
+			str = str.substring(str.indexOf('_')+1,str.length());
 			list.add(str);
 		}
+		List<Integer> list1 = new ArrayList(list);
 
-		log.info("dd : " + list);
-
-		Iterator it = list.iterator();
-		List list1 = new ArrayList();
-		while (it.hasNext()) {
-			String str = (String) it.next();
-			String str1[] = str.split("_");
-			for (int k = 0; k < str1.length; k++) {
-				if (k == 1) {
-					list1.add(str1[k]);
-				}
-			}
-		}
-		log.info(list1);
+		log.info("!!!!!!!!!!!!!!!!!!!!!!!! " + list1);
 		List<MenuItemsBean> listOfUrl = dao.getUrlByRoles(list1);
 		return listOfUrl;
 
 	}
 
 	public boolean saveEnquiryDetails(EnquiryBean bean) {
-	log.info("here");
+		log.info("here");
 		return dao.saveEnquieryDetails(bean);
 	}
 }
