@@ -20,6 +20,16 @@ public class MenuItemsBean {
 	@Column(name="menu_url")
 	private String menuUrl;
 
+	
+	public MenuItemsBean() {
+		
+	}
+	public MenuItemsBean(String menuName, String menuUrl) {
+		super();
+		this.menuName = menuName;
+		this.menuUrl = menuUrl;
+	}
+
 	public int getMenu_id() {
 		return menu_id;
 	}

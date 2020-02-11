@@ -31,25 +31,27 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 	        .antMatchers("/static-resources/**").permitAll()
 		    .antMatchers("/homePage").access("hasRole('ROLE_1')")
 		    .antMatchers("/enquiery").hasRole("1")
+		    //.antMatchers("/enquiery").hasAnyRole("1","2","3")
 		 //   .antMatchers("/Users_Details_report").hasRole("DBA")
 		 //   .antMatchers("/reportsPage").hasAnyRole("ADMIN","DBA")
 		 //   .antMatchers("/viewUsers").access("hasRole('ROLE_ADMIN')")
+		    .antMatchers("/generateReport").hasAnyRole("principal")
 	        .and()
 		    //login
-		    .formLogin()//.loginPage("/loginPage")
+		    .formLogin().loginPage("/loginPage")
 		    .defaultSuccessUrl("/homePage")
-		    .failureUrl("/login?error")
+		    .failureUrl("/loginPage?msg=Bad credentials!")
 		    .usernameParameter("userUserName")
 		    .passwordParameter("userPassword")
 	        .and()
 		    //logout
 		    .logout()
-		    .logoutSuccessUrl("/login?logout")
+		    .logoutSuccessUrl("/loginPage?msg=log out successful!")
 		    .invalidateHttpSession(true)
 	      //  .and()
 		  //  .exceptionHandling()
 		   // .accessDeniedPage("/accessDenied")
-		    .and().csrf();
+		    .and().csrf().disable();
 /*	        .and()
 		    //session management
 		    .sessionManagement()

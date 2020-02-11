@@ -38,13 +38,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		List<GrantedAuthority> authorities = getGrantedAuthorities(user.getRoles());
 		boolean isEnabled = true;
-		return new User(user.getUserEmail(), user.getUserPassword(), isEnabled,
+		return new User(user.getUserUserName(), user.getUserPassword(), isEnabled,
 				true, true, true, authorities);
 	}
 
 	private List<GrantedAuthority> getGrantedAuthorities(Set<UserRole> roles) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        
+        if(roles == null)
+        	return authorities;
         for(UserRole userProfile : roles){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getRoleId()));
         }
