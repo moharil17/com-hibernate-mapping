@@ -40,13 +40,13 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		    //login
 		    .formLogin().loginPage("/loginPage")
 		    .defaultSuccessUrl("/homePage")
-		    .failureUrl("/loginPage")
+		    .failureUrl("/loginPage?msg=Bad credentials!")
 		    .usernameParameter("userUserName")
 		    .passwordParameter("userPassword")
 	        .and()
 		    //logout
 		    .logout()
-		    .logoutSuccessUrl("/login?logout")
+		    .logoutSuccessUrl("/loginPage?msg=log out successful!")
 		    .invalidateHttpSession(true)
 	      //  .and()
 		  //  .exceptionHandling()

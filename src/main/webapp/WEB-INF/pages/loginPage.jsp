@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-<%@include file="includes/header.jsp"%>
+	<title>Login</title>
+	<%@include file="includes/header.jsp"%>
+
 </head>
 <body>
  	<%
@@ -31,4 +32,9 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	if(new URL(window.location.href).searchParams.get("msg") != null)
+		alert(new URL(window.location.href).searchParams.get("msg"));
+</script>
 </html>

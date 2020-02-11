@@ -27,6 +27,7 @@ public class DaoImpl implements DaoApi {
 
 	protected final static Log log = LogFactory.getLog(DaoImpl.class);
 
+	@SuppressWarnings("unchecked")
 	public UserBean getUserByUsername(String username) {
 
 		if (username == null) {
@@ -73,6 +74,7 @@ public class DaoImpl implements DaoApi {
 					+ "JOIN roles_menu_items_mappings umi \r\n" + "on mi.menu_id = umi.menu_id\r\n"
 					+ "WHERE umi.role_id in (:roleId)";
 
+			@SuppressWarnings("unchecked")
 			List<Object[]> list = sessionFactory.getCurrentSession().createSQLQuery(hql)
 					.setParameterList("roleId", roleId).list();
 			log.info("list : " + list);
@@ -100,6 +102,7 @@ public class DaoImpl implements DaoApi {
 		log.info("here");
 		try {
 			String loggedUserName = bean.getUserName();
+
 			log.info(loggedUserName);
 			Query query = sessionFactory.getCurrentSession()
 					.createQuery("select u.user_id from UserBean u where u.userUserName=:loggedUserName");
@@ -114,6 +117,5 @@ public class DaoImpl implements DaoApi {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 }

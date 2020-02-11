@@ -29,12 +29,11 @@
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 							<div class="modal-body">
-								<form action="enquiery" method="post" modelAttribute="EnquiryBean" id="enquiryForm">
+								<form action="enquiery" method="post" id="enquiryForm">
 									<div class="form-row">
 										<div class="form-group col-md-5">
 											<label for="firstName">First Name</label> <input type="text"
-												class="form-control-sm" id="firstName" name="firstName"
-												placeholder="">
+												class="form-control-sm" id="firstName" name="firstName">
 										</div>
 										<div class="form-group col-md-5">
 											<label for="lastName">Last Name</label> <input type="text"
@@ -51,8 +50,7 @@
 										</div>
 										<div class="form-group col-md-5">
 											<label for="mobileNo">Mobile No.</label> <input type="text"
-												class="form-control-sm" id="mobileNo" name="mobileNo"
-												placeholder="">
+												class="form-control-sm" id="mobileNo" name="mobileNo">
 										</div>
 										<div class="form-group col-md-4">
 											<label for="emailId">Email ID</label> <input type="email"
@@ -110,7 +108,6 @@
 					</div>
 				</div>
 			</div>
-
 
 		</div>
 	</div>

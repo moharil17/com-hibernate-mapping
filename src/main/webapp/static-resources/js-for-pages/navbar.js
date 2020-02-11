@@ -1,4 +1,4 @@
-$("navbar-nav").ready(function() {
+$("#navMenuBar").ready(function() {
 
 			$.ajax({
 				url : "getNavigationMenuItems",
@@ -10,14 +10,14 @@ $("navbar-nav").ready(function() {
 						
 						$.each(xhr, function(id, value, key) {
 							console.log("i a here");
+
 							var n = $("nav ul").append('<li class="nav-item"><a class="nav-link" href="'+ value.menuUrl + '">'+ value.menuName+ '</a></li>');
+
 							console.log(n);
 						});
 					},
 				
-					400 : function(xhr) {
-						
-						
+					500 : function(xhr) {
 						alert("Temporary error in appication. Have a tea break and come again! We will fix it for you. :P");
 					}
 				}

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javax.persistence.Transient;
+
 @Entity
 @Table(name = "enquiery_info")
 public class EnquiryBean {
@@ -51,9 +53,14 @@ public class EnquiryBean {
 
 	@Column(name = "enquiry_Date", columnDefinition = "TIMESTAMP")
 	Date date;
+	
+	@Column(name = "created_by")
+	private int created_by;
+	
 	@Column(name = "created_by")
 	private int created_by;
 
+  @Transient
 	private String userName;
 
 	public String getUserName() {
@@ -173,7 +180,8 @@ public class EnquiryBean {
 		return "EnquiryBean [enquiry_id=" + enquiry_id + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", gender=" + gender + ", mobileNo=" + mobileNo + ", emailId=" + emailId + ", prevYrMarks="
 				+ prevYrMarks + ", admssnToClass=" + admssnToClass + ", city=" + city + ", state=" + state + ", zip="
-				+ zip + ", startDateTime=" + date + "]";
+				+ zip + ", date=" + date + ", created_by=" + created_by + ", userName=" + userName + "]";
+
 	}
 
 }

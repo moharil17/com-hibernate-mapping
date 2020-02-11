@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar navbar-expand-sm bg-light" id="navMenuBar">
   <ul class="navbar-nav">
   
 <!--     <li class="nav-item">

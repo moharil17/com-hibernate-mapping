@@ -45,12 +45,14 @@ public class ServiceImpl implements ServiceApi {
 		Iterator i = role.iterator();
 		while (i.hasNext()) {
 			String str = i.next().toString();
+
 			str = str.substring(str.indexOf('_')+1,str.length());
 			list.add(str);
 		}
 		List<Integer> list1 = new ArrayList(list);
 
 		log.info("!!!!!!!!!!!!!!!!!!!!!!!! " + list1);
+
 		List<MenuItemsBean> listOfUrl = dao.getUrlByRoles(list1);
 		return listOfUrl;
 
@@ -58,6 +60,7 @@ public class ServiceImpl implements ServiceApi {
 
 	public boolean saveEnquiryDetails(EnquiryBean bean) {
 		log.info("here");
+
 		return dao.saveEnquieryDetails(bean);
 	}
 }
