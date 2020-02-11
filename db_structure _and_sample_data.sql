@@ -17,6 +17,21 @@ DROP DATABASE IF EXISTS `school_db`;
 CREATE DATABASE IF NOT EXISTS `school_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `school_db`;
 
+-- Dumping structure for table school_db.cityinfo
+DROP TABLE IF EXISTS `cityinfo`;
+CREATE TABLE IF NOT EXISTS `cityinfo` (
+  `city_id` int(5) NOT NULL,
+  `city_name` varchar(20) NOT NULL,
+  `state_id` int(5) NOT NULL,
+  PRIMARY KEY (`city_id`),
+  KEY `FK_cityinfo_stateinfo` (`state_id`),
+  CONSTRAINT `FK_cityinfo_stateinfo` FOREIGN KEY (`state_id`) REFERENCES `stateinfo` (`state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table school_db.cityinfo: ~0 rows (approximately)
+/*!40000 ALTER TABLE `cityinfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cityinfo` ENABLE KEYS */;
+
 -- Dumping structure for table school_db.enquiery_info
 DROP TABLE IF EXISTS `enquiery_info`;
 CREATE TABLE IF NOT EXISTS `enquiery_info` (
@@ -86,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
 -- Dumping data for table school_db.menu_items: ~4 rows (approximately)
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
 REPLACE INTO `menu_items` (`menu_id`, `menu_name`, `menu_url`) VALUES
-	(1, 'users', 'users'),
-	(2, 'AboutUs', 'AboutUs'),
+	(1, 'HomePage', 'homePage'),
+	(2, 'Enquiery', 'enquiery'),
 	(3, 'Admission', 'Admission'),
 	(4, 'GenerateReport', 'GenerateReport');
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
@@ -105,18 +120,27 @@ CREATE TABLE IF NOT EXISTS `roles_menu_items_mappings` (
   CONSTRAINT `FK_roles_menu_items_mappings_user_roles` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table school_db.roles_menu_items_mappings: ~8 rows (approximately)
+-- Dumping data for table school_db.roles_menu_items_mappings: ~5 rows (approximately)
 /*!40000 ALTER TABLE `roles_menu_items_mappings` DISABLE KEYS */;
 REPLACE INTO `roles_menu_items_mappings` (`role_id`, `menu_id`) VALUES
 	(1, 1),
 	(2, 1),
 	(1, 2),
 	(2, 2),
-	(3, 2),
-	(4, 2),
-	(1, 3),
-	(4, 4);
+	(3, 2);
 /*!40000 ALTER TABLE `roles_menu_items_mappings` ENABLE KEYS */;
+
+-- Dumping structure for table school_db.stateinfo
+DROP TABLE IF EXISTS `stateinfo`;
+CREATE TABLE IF NOT EXISTS `stateinfo` (
+  `state_id` int(5) NOT NULL,
+  `state_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table school_db.stateinfo: ~0 rows (approximately)
+/*!40000 ALTER TABLE `stateinfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stateinfo` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.student
 DROP TABLE IF EXISTS `student`;
