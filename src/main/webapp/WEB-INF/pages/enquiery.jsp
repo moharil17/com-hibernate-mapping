@@ -80,13 +80,16 @@
 									<div class="form-group col-md-3">
 											<label for="state">State</label> <select id="state"
 												class="form-control-sm" name="state">
-												<option selected value="">Maharashtra</option>
-												<option>...</option>
+												<option value="" selected disabled>Please Select</option>
+												
 											</select>
 										</div>
 										<div class="form-group col-md-5">
-											<label for="city">City</label> <input type="text"
-												class="form-control-sm" id="city" name="city">
+											<label for="city">City</label> <select id="city"
+												class="form-control-sm" name="state">
+												<option value="" selected disabled>Please Select</option>
+												
+											</select>
 										</div>
 										<div class="form-group col-md-4">
 											<label for="zip">Zip</label> <input type="text"

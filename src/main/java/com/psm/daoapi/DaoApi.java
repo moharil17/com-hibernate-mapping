@@ -18,4 +18,8 @@ public interface DaoApi {
 	public List<MenuItemsBean> getUrlByRoles(List<Integer> roleId);
 
 	public boolean saveEnquieryDetails(EnquiryBean bean);
+	
+	public List<String> getCityNames(int id);
+	
+	public List<String> getStateNames();
 }

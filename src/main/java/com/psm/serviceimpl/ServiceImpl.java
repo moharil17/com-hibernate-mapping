@@ -63,4 +63,13 @@ public class ServiceImpl implements ServiceApi {
 
 		return dao.saveEnquieryDetails(bean);
 	}
+
+	public List<String> getCityNames(int id) {
+		
+		return dao.getCityNames(id);
+	}
+	
+	public List<String> getStateNames(){
+		return dao.getStateNames();
+	}
 }
