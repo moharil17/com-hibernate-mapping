@@ -40,7 +40,6 @@ public class MainController {
 	@GetMapping("/homePage")
 	public String getHomePage() {
 
-		getEnquieryPage();
 		return "homePage";
 	}
 
@@ -51,7 +50,7 @@ public class MainController {
 	}
 
 	@GetMapping("/enquiery")
-	public String getenquieryPage() {
+	public String getEnquieryPage() {
 
 		return "enquiery";
 	}

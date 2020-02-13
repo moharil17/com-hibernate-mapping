@@ -56,9 +56,6 @@ public class EnquiryBean {
 	
 	@Column(name = "created_by")
 	private int created_by;
-	
-	@Column(name = "created_by")
-	private int created_by;
 
   @Transient
 	private String userName;

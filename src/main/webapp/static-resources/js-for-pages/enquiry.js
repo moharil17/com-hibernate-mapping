@@ -17,12 +17,13 @@ $(document).ready(function() {
 				 
 				// Create an FormData object 
 			        var data = new FormData(form);
+			       // data = $('#enquiryForm').serialize();
 
 			        //adding sec token into data obj
 
 			        var secToken = $('#csrf').val();
 
-			        data.append("_csrf", $('#csrf').val());
+			       // data.append("_csrf", $('#csrf').val());
 			        console.log(data);
 			        
 			        $.ajax({
