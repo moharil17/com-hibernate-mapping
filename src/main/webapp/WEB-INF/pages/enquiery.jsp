@@ -15,7 +15,7 @@
 	%>
 	<div class="container">
 
-		<h3>Enquiry Page</h3>
+		<h4>Enquiry Page</h4>
 
 		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#enquiryModal">New Enquiry</button>
 		<div class="row">
@@ -80,7 +80,7 @@
 									<div class="form-group col-md-3">
 											<label for="state">State</label> <select id="state"
 												class="form-control-sm" name="state">
-												<option selected>Maharashtra</option>
+												<option selected value="">Maharashtra</option>
 												<option>...</option>
 											</select>
 										</div>
