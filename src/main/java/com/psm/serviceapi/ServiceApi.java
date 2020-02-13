@@ -18,4 +18,8 @@ public interface ServiceApi {
 	public List<MenuItemsBean> getUrlByRoles(List<String> roleId);
 
 	public boolean saveEnquiryDetails(EnquiryBean bean);
+	
+	public List<String> getCityNames(int id);
+	
+	public List<String> getStateNames();
 }

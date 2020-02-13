@@ -118,4 +118,22 @@ public class DaoImpl implements DaoApi {
 			return false;
 		}
 	}
+	public List<String> getCityNames(int id) {
+		try {
+		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
+		return list;
+	}
+		catch(Exception e) {
+			return null;
+		}
+}
+	public List<String> getStateNames() {
+		try {
+		List<String> list = sessionFactory.getCurrentSession().createQuery("from StateBean").list();
+		return list;
+	}
+		catch(Exception e) {
+			return null;
+		}
+}
 }

@@ -17,13 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.psm.daoapi.DaoApi;
+import com.psm.entities.CityBean;
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
-import com.psm.entities.StudentBean;
+import com.psm.entities.StateBean;
 import com.psm.serviceapi.ServiceApi;
 
 import com.psm.serviceapi.ServiceApi;
@@ -66,11 +68,29 @@ public class MainController {
 
 		log.info(bean);
 
-		boolean b = service.saveEnquiryDetails(bean);
-		if (b)
+		boolean isSaved = service.saveEnquiryDetails(bean);
+		if (isSaved)
 			return new ResponseEntity<String>("Enquiry saved successfully", HttpStatus.CREATED);
 
 		return new ResponseEntity<String>("Saving failed", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@GetMapping("/getCityList/{stateid}")
+	public @ResponseBody List<CityBean> getCityList(@PathVariable int stateid) {
+		// to send cityList to view
+
+		log.info("here i got the id of state!!!!!!!!!!  " + stateid);
+		List list = service.getCityNames(stateid);
+		log.info("we have it here : " + list);
+		return list;
+	}
+
+	@GetMapping("/getStateListinfo")
+	public @ResponseBody List<StateBean> getStateList() {
+		// to send cityList to view
+		List list = service.getStateNames();
+		log.info("we have it here : " + list);
+		return list;
 	}
 
 	@GetMapping("/addstudent")
@@ -79,7 +99,7 @@ public class MainController {
 	}
 
 	@GetMapping("/getNavigationMenuItems")
-	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems(Authentication authentication) {
+	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
 		List<String> list = loggedUserInfo();
 
@@ -91,6 +111,7 @@ public class MainController {
 		return list1;
 	}
 
+	// fetch logged in user using spring security
 	public List<String> loggedUserInfo() {
 		Authentication authentication;
 		authentication = SecurityContextHolder.getContext().getAuthentication();
