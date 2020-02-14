@@ -75,12 +75,12 @@ public class MainController {
 		return new ResponseEntity<String>("Saving failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@GetMapping("/getCityList/{stateid}")
-	public @ResponseBody List<CityBean> getCityList(@PathVariable int stateid) {
+	@GetMapping("/getCityList/{stateId}")
+	public @ResponseBody List<CityBean> getCityList(@PathVariable int stateId) {
 		// to send cityList to view
 
-		log.info("here i got the id of state!!!!!!!!!!  " + stateid);
-		List list = service.getCityNames(stateid);
+		log.info("here i got the id of state!!!!!!!!!!  " + stateId);
+		List list = service.getCityNames(stateId);
 		log.info("we have it here : " + list);
 		return list;
 	}
