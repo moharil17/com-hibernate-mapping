@@ -39,7 +39,9 @@ public class DaoImpl implements DaoApi {
 		list = sessionFactory.getCurrentSession().createQuery("from UserBean where userUserName=:username")
 				.setParameter("username", username).list();
 
+		log.info(11);
 		if (list.size() > 0) {
+			log.info(22);
 			return list.get(0);
 		}
 		/// return null;
@@ -64,8 +66,9 @@ public class DaoImpl implements DaoApi {
 		}
 	}
 
-	public List<MenuItemsBean> getUrlByRoles(List<String> roleId) {
+	public List<MenuItemsBean> getUrlByRoles(List<Integer> roleId) {
 
+		log.info("\"inside dao :\" + roleId");
 		try {
 			String hql = "SELECT DISTINCT mi.menu_url, mi.menu_name from menu_items mi\r\n"
 					+ "JOIN roles_menu_items_mappings umi \r\n" + "on mi.menu_id = umi.menu_id\r\n"
@@ -74,7 +77,7 @@ public class DaoImpl implements DaoApi {
 			@SuppressWarnings("unchecked")
 			List<Object[]> list = sessionFactory.getCurrentSession().createSQLQuery(hql)
 					.setParameterList("roleId", roleId).list();
-
+			log.info("list : " + list);
 			List<MenuItemsBean> returnList = new ArrayList();
 			for (Object[] obj : list) {
 				MenuItemsBean bean = new MenuItemsBean();
@@ -83,8 +86,12 @@ public class DaoImpl implements DaoApi {
 				returnList.add(bean);
 
 			}
+
+			log.info("i am insdie try");
+
+			log.info(returnList);
 			return returnList;
-			
+
 		} catch (Exception e) {
 			log.info(e);
 		}
@@ -92,14 +99,16 @@ public class DaoImpl implements DaoApi {
 	}
 
 	public boolean saveEnquieryDetails(EnquiryBean bean) {
+		log.info("here");
 		try {
 			String loggedUserName = bean.getUserName();
 
+			log.info(loggedUserName);
 			Query query = sessionFactory.getCurrentSession()
 					.createQuery("select u.user_id from UserBean u where u.userUserName=:loggedUserName");
 			query.setParameter("loggedUserName", loggedUserName);
 			int loggedUserId = (Integer) query.uniqueResult();
-
+			log.info("id fetchede: " + loggedUserId);
 			bean.setCreated_by(loggedUserId);
 			sessionFactory.getCurrentSession().save(bean);
 			return true;
@@ -109,22 +118,22 @@ public class DaoImpl implements DaoApi {
 			return false;
 		}
 	}
-	public List<String> getCitiesForState(int id) {
+	public List<String> getCityNames(int id) {
 		try {
 		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
 		return list;
 	}
-		catch (Exception e) {
+		catch(Exception e) {
 			return null;
 		}
-	}
-
-	public List<String> getStates() {
+}
+	public List<String> getStateNames() {
 		try {
-			List<String> list = sessionFactory.getCurrentSession().createQuery("from StateBean").list();
-			return list;
-		} catch (Exception e) {
+		List<String> list = sessionFactory.getCurrentSession().createQuery("from StateBean").list();
+		return list;
+	}
+		catch(Exception e) {
 			return null;
 		}
-	}
+}
 }

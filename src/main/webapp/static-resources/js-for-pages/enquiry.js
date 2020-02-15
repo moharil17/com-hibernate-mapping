@@ -9,29 +9,45 @@
 $(document).ready(
 		function() {
 			
+			
 			$("#enquirySubBtn").click(function(event) {
+				// stop submit the form, we will post it manually.
 				
-			// stop default submit of form, we will post it manually.
 				event.preventDefault();
+
+				var form = $('#enquiryForm')[0];
+
+				// Create an FormData object
+				var data = new FormData(form);
+				var secToken = $('#csrf').val();
+				
+				data.append("_csrf", $('#csrf').val());
+				console.log("Form save data :"+data);
 
 				$.ajax({
 					type : "POST",
-					url : "createNewEnquiery",
-					data : $('form[id=enquiryForm]').serialize(),
-					
-					success : function(textStatus) {
-						
+					url : "enquiery",
+					data : data,
+					processData : false,
+					contentType : false,
+					cache : false,
+					success : function(data) {
 						$('.modal').modal('hide');
-						alert(textStatus);
+						alert("SUCCESS : ", data);
+						/*$("#enquiryForm").find("input").val("");
+						$("#enquiryForm").find("select").find('option:not(:first)').remove();*/
+						
 					},
-					error : function(xhr, textStatus) {
-						alert(textStatus+" : "+xhr.responseText);
+					error : function(e) {
+						alert(e);
 					}
 				});
 			});
 
-			// On enquiryModal open, fetch States dropdown data
-			$('#enquiryModal').on('shown.bs.modal',function() {
+			$('#enquiryModal').on(
+					'shown.bs.modal',
+					
+					function() {
 						
 						$.ajax({
 							url : "getStateListinfo",
@@ -40,46 +56,59 @@ $(document).ready(
 								
 								$('#state').find('option:not(:first)').remove();
 								$.each(xhr, function(i, value) {
-
-									var n = "<option value=" + value.state_id + ">" + value.stateName + "</option>";
+									console.log("i a here");
+									var n = "<option value=" + value.state_id
+											+ ">" + value.stateName
+											+ "</option>";
 									$(n).appendTo("#state")
 								});
 							},
 
-							error : function(xhr, textStatus) {
-								alert(textStatus+" : "+xhr.responseText);
+							error : function() {
+								alert("Error in fetching stated=s");
 							}
 						});
 						
-						
-			//onchange of #states fetch cities dropdown data
-			$(document).on('change', '#state', function() {
-				
+						//onchange of states fetch cities
+						 $(document).on('change', '#state', function(){
+							
+							 var changed_state_id = $(this).val();
+							 
+							 console.log(changed_state_id);
+							
 							 $.ajax({
 									type : "GET",
-									url : "getCityList/"+ $('#state').val(), //Ex. /getCityList/1
-									success : function(xhr) {
-										//remove previous data of dropdown
-										$('#city').find('option:not(:first)').remove();
-
-										$.each(xhr,function(i,value) {
-											var n = "<option value=" + value.city_id+">" + value.cityName+"</option>";
-											$(n).appendTo("#city");
-										});
+									url : "getCityList/"+changed_state_id+"/",
+									data : changed_state_id,
+									processData : false,
+									contentType : false,
+									cache : false,
+									
+									statusCode: {
+										
+										200 : function(xhr){
+											 $('#city').find('option:not(:first)').remove();
+									console.log(xhr)
+									
+									$.each(xhr,function(i,value){
+										var n = "<option value=" + value.city_id+">" + value.cityName+"</option>";
+										$(n).appendTo("#city");
+									});
 									},
-									error : function(xhr, textStatus) {
-										alert(textStatus+" : "+xhr.responseText);
+									error : function(e) {
+										alert(e);
 									}
+							 }
 								});
 							 
 					});
 
 		});
-			
-			// Clear form data on close of modal
 			$("#enquiryModal").on('hidden.bs.modal',function(){
 				
 				$("#enquiryForm").find("input").val("");
 				$("#enquiryForm").find("select").find('option:not(:first)').remove();
+				
+				
 			});
 		});

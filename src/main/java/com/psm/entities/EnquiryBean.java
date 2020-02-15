@@ -1,6 +1,9 @@
 package com.psm.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +19,8 @@ public class EnquiryBean {
 
 	@Id
 	@GeneratedValue
+
 	private int enquiry_id;
-	
 	@Column(name = "first_name")
 	private String firstName;
 
@@ -48,17 +51,13 @@ public class EnquiryBean {
 	@Column(name = "Zip")
 	private String zip;
 
-	@Transient
-//	@Column(name = "enquiry_Date", columnDefinition = "TIMESTAMP")
+	@Column(name = "enquiry_Date", columnDefinition = "TIMESTAMP")
 	Date date;
 	
-	@Column(name="enquiry_Date", columnDefinition = "TIMESTAMP")
-	private String enquiryDate;
-
 	@Column(name = "created_by")
 	private int created_by;
 
-	@Transient
+  @Transient
 	private String userName;
 
 	public String getUserName() {
@@ -172,23 +171,14 @@ public class EnquiryBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
-	public String getEnquiryDate() {
-		return enquiryDate;
-	}
-
-	public void setEnquiryDate(String enquiryDate) {
-		this.enquiryDate = enquiryDate;
-	}
 
 	@Override
 	public String toString() {
 		return "EnquiryBean [enquiry_id=" + enquiry_id + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", gender=" + gender + ", mobileNo=" + mobileNo + ", emailId=" + emailId + ", prevYrMarks="
 				+ prevYrMarks + ", admssnToClass=" + admssnToClass + ", city=" + city + ", state=" + state + ", zip="
-				+ zip + ", date=" + date + ", enquiryDate=" + enquiryDate + ", created_by=" + created_by + ", userName="
-				+ userName + "]";
+				+ zip + ", date=" + date + ", created_by=" + created_by + ", userName=" + userName + "]";
+
 	}
 
 }

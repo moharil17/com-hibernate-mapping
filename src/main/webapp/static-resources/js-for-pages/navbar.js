@@ -5,10 +5,15 @@ $("#navMenuBar").ready(function() {
 				type: "GET",
 				statusCode : {
 					200 : function(xhr) {
+						console.log("inside ajax response 200");
+						console.log(xhr);
 						
 						$.each(xhr, function(id, value, key) {
+							console.log("i a here");
 
-							$("nav ul").append('<li class="nav-item"><a class="nav-link" href="'+ value.menuUrl + '">'+ value.menuName+ '</a></li>');
+							var n = $("nav ul").append('<li class="nav-item"><a class="nav-link" href="'+ value.menuUrl + '">'+ value.menuName+ '</a></li>');
+
+							console.log(n);
 						});
 					},
 				

@@ -41,33 +41,35 @@ public class ServiceImpl implements ServiceApi {
 
 	public List<MenuItemsBean> getUrlByRoles(List<String> role) {
 
-		List<String> roleIDs = new ArrayList();
+		List<String> list = new ArrayList();
 		Iterator i = role.iterator();
-		
 		while (i.hasNext()) {
-			
-			String roleString = i.next().toString();
-		//	roleString = roleString.substring(4);
-			roleString = roleString.substring(roleString.indexOf('_') + 1, roleString.length());
-			roleIDs.add(roleString);
-		}
+			String str = i.next().toString();
 
-		List<MenuItemsBean> listOfUrl = dao.getUrlByRoles(roleIDs);
+			str = str.substring(str.indexOf('_')+1,str.length());
+			list.add(str);
+		}
+		List<Integer> list1 = new ArrayList(list);
+
+		log.info("!!!!!!!!!!!!!!!!!!!!!!!! " + list1);
+
+		List<MenuItemsBean> listOfUrl = dao.getUrlByRoles(list1);
 		return listOfUrl;
 
 	}
 
 	public boolean saveEnquiryDetails(EnquiryBean bean) {
+		log.info("here");
 
 		return dao.saveEnquieryDetails(bean);
 	}
 
-	public List<String> getCitiesForState(int id) {
+	public List<String> getCityNames(int id) {
 		
-		return dao.getCitiesForState(id);
+		return dao.getCityNames(id);
 	}
 	
-	public List<String> getStates() {
-		return dao.getStates();
+	public List<String> getStateNames(){
+		return dao.getStateNames();
 	}
 }

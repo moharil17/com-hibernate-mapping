@@ -28,18 +28,8 @@ CREATE TABLE IF NOT EXISTS `cityinfo` (
   CONSTRAINT `FK_cityinfo_stateinfo` FOREIGN KEY (`state_id`) REFERENCES `stateinfo` (`state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table school_db.cityinfo: ~9 rows (approximately)
+-- Dumping data for table school_db.cityinfo: ~0 rows (approximately)
 /*!40000 ALTER TABLE `cityinfo` DISABLE KEYS */;
-REPLACE INTO `cityinfo` (`city_id`, `city_name`, `state_id`) VALUES
-	(1, 'Pune', 1),
-	(2, 'Mumbai', 1),
-	(3, 'Nagpur', 1),
-	(4, 'Nasik', 1),
-	(5, 'Wardha', 1),
-	(6, 'Raipur', 2),
-	(7, 'Bhilai', 2),
-	(8, 'Durg', 2),
-	(9, 'Bilaspur', 2);
 /*!40000 ALTER TABLE `cityinfo` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.enquiery_info
@@ -62,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `enquiery_info` (
   PRIMARY KEY (`enquiry_id`),
   KEY `FK_enquiery_info_user` (`created_by`),
   CONSTRAINT `FK_enquiery_info_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
--- Dumping data for table school_db.enquiery_info: ~26 rows (approximately)
+-- Dumping data for table school_db.enquiery_info: ~12 rows (approximately)
 /*!40000 ALTER TABLE `enquiery_info` DISABLE KEYS */;
 REPLACE INTO `enquiery_info` (`enquiry_id`, `first_name`, `last_name`, `gender`, `mobile_no`, `email_id`, `prev_Year_Marks`, `admission_To_Class`, `city`, `state`, `Zip`, `enquiry_Date`, `created_by`, `userName`) VALUES
 	(26, 'kalyani', 'moharil', 'female', '7083913648', 'kalyani92moharil@gmail.com', 80, 0, 'pune', 'maharashtra', '411040', '2020-02-06 00:00:00', NULL, NULL),
@@ -76,23 +66,9 @@ REPLACE INTO `enquiery_info` (`enquiry_id`, `first_name`, `last_name`, `gender`,
 	(33, 'kalyani', 'moharil', 'female', '7083913648', 'kalyani92moharil@gmail.com', 80, 0, 'pune', 'maharashtra', '411040', '2020-02-06 00:00:00', 1, 'kal12'),
 	(34, 'kalyani', 'moharil', 'female', '7083913648', 'kalyani92moharil@gmail.com', 80, 0, 'pune', 'maharashtra', '411040', '2020-02-06 00:00:00', 1, 'kal12'),
 	(35, 'kalyani', 'moharil', 'female', '7083913648', 'kalyani92moharil@gmail.com', 80, 0, 'pune', 'maharashtra', '411040', '2020-02-06 00:00:00', 1, 'kal12'),
-	(48, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(49, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(50, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(51, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(52, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(53, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(54, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(55, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(56, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(57, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(58, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(59, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(60, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(61, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(62, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(63, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12'),
-	(64, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-13 00:00:00', 1, 'kal12');
+	(37, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-06 00:00:00', 1, 'kal12'),
+	(38, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-06 00:00:00', 1, 'kal12'),
+	(39, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2020-02-06 00:00:00', 1, 'kal12');
 /*!40000 ALTER TABLE `enquiery_info` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.hibernate_sequence
@@ -104,12 +80,12 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
 -- Dumping data for table school_db.hibernate_sequence: ~6 rows (approximately)
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
 REPLACE INTO `hibernate_sequence` (`next_val`) VALUES
-	(65),
-	(65),
-	(65),
-	(65),
-	(65),
-	(65);
+	(40),
+	(40),
+	(40),
+	(40),
+	(40),
+	(40);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.menu_items
@@ -162,11 +138,8 @@ CREATE TABLE IF NOT EXISTS `stateinfo` (
   PRIMARY KEY (`state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table school_db.stateinfo: ~2 rows (approximately)
+-- Dumping data for table school_db.stateinfo: ~0 rows (approximately)
 /*!40000 ALTER TABLE `stateinfo` DISABLE KEYS */;
-REPLACE INTO `stateinfo` (`state_id`, `state_name`) VALUES
-	(1, 'Maharashtra'),
-	(2, 'Chhattisgarh');
 /*!40000 ALTER TABLE `stateinfo` ENABLE KEYS */;
 
 -- Dumping structure for table school_db.student
