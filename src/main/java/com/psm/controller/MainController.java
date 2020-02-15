@@ -1,6 +1,8 @@
 package com.psm.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -58,15 +60,18 @@ public class MainController {
 	}
 
 	// save enquiery form using ajax
-	@PostMapping("/enquiery")
-	public ResponseEntity<String> enquiryeDetails(@ModelAttribute EnquiryBean bean) {
+	@PostMapping("/createNewEnquiery")
+	public ResponseEntity<String> saveEnquiryeDetails(@ModelAttribute EnquiryBean bean) {
 
-		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		bean.setDate(date);
+		//java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		//bean.setDate(date);
+		Date todayDateTime = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String todayDateTimeString = sdf.format(todayDateTime);
+		bean.setEnquiryDate(todayDateTimeString);
+		
 		// to save role id
 		bean.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-
-		log.info(bean);
 
 		boolean isSaved = service.saveEnquiryDetails(bean);
 		if (isSaved)
@@ -75,59 +80,44 @@ public class MainController {
 		return new ResponseEntity<String>("Saving failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	// fetch cities on stateID
 	@GetMapping("/getCityList/{stateId}")
-	public @ResponseBody List<CityBean> getCityList(@PathVariable int stateId) {
-		// to send cityList to view
+	public @ResponseBody List<CityBean> getCitiesForState(@PathVariable int stateId) {
 
-		log.info("here i got the id of state!!!!!!!!!!  " + stateId);
-		List list = service.getCityNames(stateId);
-		log.info("we have it here : " + list);
+		List list = service.getCitiesForState(stateId);
 		return list;
 	}
 
 	@GetMapping("/getStateListinfo")
-	public @ResponseBody List<StateBean> getStateList() {
+	public @ResponseBody List<StateBean> getStates() {
 		// to send cityList to view
-		List list = service.getStateNames();
-		log.info("we have it here : " + list);
+		List list = service.getStates();
 		return list;
-	}
-
-	@GetMapping("/addstudent")
-	public String viewAddStudent() {
-		return "addstudent";
 	}
 
 	@GetMapping("/getNavigationMenuItems")
 	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
-		List<String> list = loggedUserInfo();
+		List<String> list = loggedInUserRoles(); //loggedUserInfo()
 
+		//Sending logged in user's roles to DAO and gets back respective Menu Items
 		List<MenuItemsBean> list1 = service.getUrlByRoles(list);
-		log.info(("inside controller :  " + list1));
-		MenuItemsBean m = new MenuItemsBean();
-		m.setMenuName("user");
-		m.setMenuUrl("user");
 		return list1;
 	}
 
-	// fetch logged in user using spring security
-	public List<String> loggedUserInfo() {
-		Authentication authentication;
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userName = authentication.getName();
-		log.info(userName);
-		authentication.getCredentials();
-
+	// fetch logged-in user's roles from spring security context
+	private List<String> loggedInUserRoles() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		List<String> list = (List) authentication.getAuthorities();
 
-		System.out.println(list);
 		return list;
 	}
 
 	@ExceptionHandler
 	public String exceptionHandlerMethod(HttpServletRequest req, Exception e) {
-		log.info("Requsest " + req.getRequestURI() + e);
+		log.info("Requsest ==> " + req.getRequestURI() +" "+ e);
+		e.printStackTrace();
 
 		return "homePage";
 	}
