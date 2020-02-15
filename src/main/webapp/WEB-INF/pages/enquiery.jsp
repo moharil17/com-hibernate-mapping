@@ -3,11 +3,12 @@
 
 <html>
 <head>
-<title>Enquiry</title>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
-<script src="${pageContext.request.contextPath}/static-resources/js-for-pages/enquiry.js"></script>
+	<title>Enquiry</title>
+	<%@include file="includes/header.jsp"%>
+	<%@include file="includes/navbar.jsp"%>
+	<script src="${pageContext.request.contextPath}/static-resources/js-for-pages/enquiry.js"></script>
 </head>
+
 <body>
 <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
  	<%
@@ -60,15 +61,16 @@
 									<div class="form-row">
 										<div class="form-group col-md-5">
 											<label for="prevYrMarks">Prev. Year Score</label> <input
-												type="text" class="form-control-sm" id="prevYrMarks"
+												type="number" class="form-control-sm" id="prevYrMarks"
 												name="prevYrMarks" placeholder="">
 										</div>
 										<div class="form-group col-md-3"></div>
 										<div class="form-group col-md-4">
 											<label for="">Enquiry for Class</label> <select
 												id="admssnToClass" name="admssnToClass" class="form-control-sm">
-												<option selected>1st</option>
-												<option>2nd</option>
+												<!-- <option value="" selected disabled>Please Select</option> -->
+												<option value = "1">1st</option>
+												<option value="2">2nd</option>
 											</select>
 										</div>
 									</div>
@@ -104,7 +106,7 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-									<button type="submit" class="btn btn-success" id="enquirySubBtn">Save</button>
+										<button type="submit" class="btn btn-success" id="enquirySubBtn">Save</button>
 									</div>
 								</form>
 							</div>

@@ -19,7 +19,7 @@ public interface ServiceApi {
 
 	public boolean saveEnquiryDetails(EnquiryBean bean);
 	
-	public List<String> getCityNames(int id);
+	public List<String> getCitiesForState(int id);
 	
-	public List<String> getStateNames();
+	public List<String> getStates();
 }
