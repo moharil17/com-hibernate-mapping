@@ -18,7 +18,36 @@
 
 		<h4>Enquiry Page</h4>
 
-		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#enquiryModal">New Enquiry</button>
+<!-- Cards -->
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card" style="height: 200px;">
+					<div class="card-header font-weight-bold">Enquiry</div>
+					<div class="card-body">
+						<p class="card-text font-italic">When student comes for first time, 
+											fill basic information as an enquiry.</p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#enquiryModal">New Enquiry</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card" style="height: 200px;">
+					<div class="card-header font-weight-bold">Search Enquiry</div>
+					<div class="card-body">
+						<select class="form-control">
+							<option value="enquiryId">Enquiry ID</option>
+							<option value="mobileNo">Mobile No.</option>
+						</select><p></p>
+						<input type="text" class="form-control" id="searchBy" name="searchBy"
+									placeholder="Mobile Number / Enquiry ID" />
+						<button type="button" class="btn btn-primary" onclick=searchEnquiry()>Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- Modal and form - start -->
 		<div class="row">
 
 			<div class="modal fade" tabindex="-1" id="enquiryModal">
