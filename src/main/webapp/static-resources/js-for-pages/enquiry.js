@@ -47,7 +47,7 @@ $(document).ready(
 							},
 
 							error : function(xhr, textStatus) {
-								alert(textStatus+" : "+xhr.responseText);
+								alert(textStatus+" : "+"States not loaded");
 							}
 						});
 						
@@ -77,9 +77,25 @@ $(document).ready(
 		});
 			
 			// Clear form data on close of modal
-			$("#enquiryModal").on('hidden.bs.modal',function(){
+			$("#enquiryModal").on('hidden.bs.modal',function() {
 				
 				$("#enquiryForm").find("input").val("");
 				$("#enquiryForm").find("select").find('option:not(:first)').remove();
 			});
 		});
+
+
+	function searchEnquiry() {
+		
+		var url = "searchEnquiry/" + $(".card select").val() + "/" + $("#searchBy").val();
+		$.ajax({
+			url : url,
+			type : "GET",
+			success : function(xhr) {
+				
+			},
+			error : function(xhr, textStatus) {
+			//	alert(textStatus+" : "+"States not loaded");
+			}
+		});
+	}

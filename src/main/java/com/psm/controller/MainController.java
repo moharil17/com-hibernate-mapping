@@ -1,10 +1,8 @@
 package com.psm.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -23,13 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.psm.daoapi.DaoApi;
 import com.psm.entities.CityBean;
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StateBean;
-import com.psm.serviceapi.ServiceApi;
-
 import com.psm.serviceapi.ServiceApi;
 
 @Controller
@@ -71,7 +66,7 @@ public class MainController {
 		bean.setEnquiryDate(todayDateTimeString);
 		
 		// to save role id
-		bean.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		bean.setUserName(getSecurityContextAuth().getName());
 
 		boolean isSaved = service.saveEnquiryDetails(bean);
 		if (isSaved)
@@ -98,7 +93,7 @@ public class MainController {
 	@GetMapping("/getNavigationMenuItems")
 	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
-		List<String> list = loggedInUserRoles(); //loggedUserInfo()
+		List<String> list = (List)getSecurityContextAuth().getAuthorities(); //loggedUserInfo()
 
 		//Sending logged in user's roles to DAO and gets back respective Menu Items
 		List<MenuItemsBean> list1 = service.getUrlByRoles(list);
@@ -112,6 +107,10 @@ public class MainController {
 		List<String> list = (List) authentication.getAuthorities();
 
 		return list;
+	}
+	private Authentication getSecurityContextAuth() {
+		
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
 	@ExceptionHandler
