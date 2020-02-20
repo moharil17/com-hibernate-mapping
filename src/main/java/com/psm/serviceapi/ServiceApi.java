@@ -25,7 +25,7 @@ public interface ServiceApi {
 
 	public String getLoggedInUserName(String loggedInUserName);
 
-	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue,String getUser);
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue);
 
 	public boolean updateEnquiry(EnquiryBean bean);
 }

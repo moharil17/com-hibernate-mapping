@@ -58,9 +58,6 @@ public class MainController {
 	@PostMapping("/createNewEnquiery")
 	public ResponseEntity<String> saveEnquiryeDetails(@ModelAttribute EnquiryBean bean) {
 
-		// java.sql.Date date = new
-		// java.sql.Date(Calendar.getInstance().getTime().getTime());
-		// bean.setDate(date);
 		Date todayDateTime = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String todayDateTimeString = sdf.format(todayDateTime);
@@ -122,11 +119,10 @@ public class MainController {
 	}
 
 	@GetMapping("searchEnquiry/{searchKey}/{searchValue}")
-	public @ResponseBody EnquiryBean enquieryDetails(@PathVariable String searchKey, @PathVariable String searchValue) {
-	     String getLoggedInUserUsername = getSecurityContextAuth().getName();
-		EnquiryBean bean = service.searchEnquiryDetails(searchKey, searchValue,getLoggedInUserUsername);
+	public @ResponseBody EnquiryBean searchEnquieryDetails(@PathVariable String searchKey, @PathVariable String searchValue) {
+		
+		EnquiryBean bean = service.searchEnquiryDetails(searchKey, searchValue);
 		return bean;
-
 	}
 
 	public boolean updateEnquiry() {

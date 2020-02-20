@@ -140,34 +140,32 @@ public class DaoImpl implements DaoApi {
 		return UserName;
 	}
 
-	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue, String getUser) {
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue) {
+		
 		Query query;
-		EnquiryBean bean = new EnquiryBean();
 		if ("mobileNo".equals(searchKey)) {
 			query = sessionFactory.getCurrentSession().createQuery("from EnquiryBean where mobileNo=:searchValue")
 					.setParameter("searchValue", searchValue);
 
-		} else {
+		} else { // earch by enquiryID
 			Integer searchEnquiryId = Integer.parseInt(searchValue);
-			int createdById = bean.getCreated_by();
 			query = sessionFactory.getCurrentSession()
 					.createQuery("from EnquiryBean where enquiry_id=:searchEnquiryId")
 					.setParameter("searchEnquiryId", searchEnquiryId);
-
 		}
 
-		
 		EnquiryBean getDetails = (EnquiryBean) query.uniqueResult();
 		
+		// code to fetch enquiry createdBy user's name
 		int createdById = getDetails.getCreated_by();
-		
+
 		query = sessionFactory.getCurrentSession()
 				.createQuery("select userName from UserBean where user_id=:createdById")
 				.setParameter("createdById", createdById);
 		String createdByUserName = (String) query.uniqueResult();
 		
-		getDetails.setCreatedByName(createdByUserName);
-		log.info(getDetails);
+	getDetails.setUserName(createdByUserName);
+
 		return getDetails;
 	}
 

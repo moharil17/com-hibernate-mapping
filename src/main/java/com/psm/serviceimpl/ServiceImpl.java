@@ -79,7 +79,7 @@ public String getLoggedInUserName(String loggedInUserName) {
 
 	public EnquiryBean searchEnquiryDetails(String searchKey,String searchValue,String getUser) {
 		
-		return dao.searchEnquiryDetails(searchKey,searchValue,getUser);
+		return dao.searchEnquiryDetails(searchKey,searchValue);
 	}
 
 	public boolean updateEnquiry(EnquiryBean bean) {

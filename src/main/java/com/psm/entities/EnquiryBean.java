@@ -47,10 +47,6 @@ public class EnquiryBean {
 
 	@Column(name = "Zip")
 	private String zip;
-
-	/*@Transient
-//	@Column(name = "enquiry_Date", columnDefinition = "TIMESTAMP")
-	Date date;*/
 	
 	@Column(name="enquiry_Date", columnDefinition = "TIMESTAMP")
 	private String enquiryDate;
@@ -172,17 +168,6 @@ public class EnquiryBean {
 		this.zip = zip;
 	}
 
-	
-	
-	
-	public int getCreated_by() {
-		return created_by;
-	}
-
-	public void setCreated_by(int created_by) {
-		this.created_by = created_by;
-	}
-
 	public String getEnquiryDate() {
 		return enquiryDate;
 	}
@@ -196,13 +181,7 @@ public class EnquiryBean {
 		return "EnquiryBean [enquiry_id=" + enquiry_id + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", gender=" + gender + ", mobileNo=" + mobileNo + ", emailId=" + emailId + ", prevYrMarks="
 				+ prevYrMarks + ", admssnToClass=" + admssnToClass + ", city=" + city + ", state=" + state + ", zip="
-				+ zip + ", enquiryDate=" + enquiryDate + ", created_by=" + created_by + ", userName=" + userName
-				+ ", createdByName=" + createdByName + "]";
+				+ zip + ", enquiryDate=" + enquiryDate + ", created_by=" + created_by + ", userName="
+				+ userName + "]";
 	}
-
-	
-	
-
-	
-
 }
