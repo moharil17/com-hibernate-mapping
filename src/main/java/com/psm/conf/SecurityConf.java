@@ -23,6 +23,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService);
 	}
 	
+	
 	@Override
     public void configure(HttpSecurity http) throws Exception {
 

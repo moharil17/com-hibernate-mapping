@@ -38,7 +38,7 @@ public class MainController {
 
 	@GetMapping("/homePage")
 	public String getHomePage() {
-
+		
 		return "homePage";
 	}
 
@@ -62,10 +62,10 @@ public class MainController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String todayDateTimeString = sdf.format(todayDateTime);
 		bean.setEnquiryDate(todayDateTimeString);
-		
+
 		// to save role id
 		bean.setUserName(getSecurityContextAuth().getName());
-
+		log.info(bean);
 		boolean isSaved = service.saveEnquiryDetails(bean);
 		if (isSaved)
 			return new ResponseEntity<String>("Enquiry saved successfully", HttpStatus.CREATED);
@@ -91,16 +91,16 @@ public class MainController {
 	@GetMapping("/getNavigationMenuItems")
 	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
-		List<String> list = (List)getSecurityContextAuth().getAuthorities(); //loggedUserInfo()
+		List<String> list = (List) getSecurityContextAuth().getAuthorities(); // loggedUserInfo()
 
-		//Sending logged in user's roles to DAO and gets back respective Menu Items
+		// Sending logged in user's roles to DAO and gets back respective Menu Items
 		List<MenuItemsBean> list1 = service.getUrlByRoles(list);
 		return list1;
 	}
 
 	// fetch logged-in user's roles from spring security context
 	private List<String> loggedInUserRoles() {
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		List<String> list = (List) authentication.getAuthorities();
 
@@ -151,13 +151,13 @@ public class MainController {
 	}
 
 	private Authentication getSecurityContextAuth() {
-		
+
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
 	@ExceptionHandler
 	public String exceptionHandlerMethod(HttpServletRequest req, Exception e) {
-		log.info("Requsest ==> " + req.getRequestURI() +" "+ e);
+		log.info("Requsest ==> " + req.getRequestURI() + " " + e);
 		e.printStackTrace();
 
 		return "homePage";

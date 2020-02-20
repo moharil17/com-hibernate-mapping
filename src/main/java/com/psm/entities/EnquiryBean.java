@@ -51,11 +51,24 @@ public class EnquiryBean {
 	@Column(name="enquiry_Date", columnDefinition = "TIMESTAMP")
 	private String enquiryDate;
 
+		
 	@Column(name = "created_by")
 	private int created_by;
 
 	@Transient
 	private String userName;
+
+	@Transient
+	private String createdByName;
+	
+	
+	public String getCreatedByName() {
+		return createdByName;
+	}
+
+	public void setCreatedByName(String createdByName) {
+		this.createdByName = createdByName;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -65,13 +78,7 @@ public class EnquiryBean {
 		this.userName = userName;
 	}
 
-	public int getCreated_by() {
-		return created_by;
-	}
-
-	public void setCreated_by(int created_by) {
-		this.created_by = created_by;
-	}
+	
 
 	public int getEnquiry_id() {
 		return enquiry_id;
@@ -160,7 +167,7 @@ public class EnquiryBean {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
 	public String getEnquiryDate() {
 		return enquiryDate;
 	}
@@ -177,5 +184,4 @@ public class EnquiryBean {
 				+ zip + ", enquiryDate=" + enquiryDate + ", created_by=" + created_by + ", userName="
 				+ userName + "]";
 	}
-
 }
