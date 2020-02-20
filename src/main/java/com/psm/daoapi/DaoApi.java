@@ -22,4 +22,10 @@ public interface DaoApi {
 	public List<String> getCitiesForState(int id);
 	
 	public List<String> getStates();
+
+	public String getLoggedInUserName(String loggedInUserName);
+
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue);
+
+	public boolean updateEnquiry(EnquiryBean bean);
 }

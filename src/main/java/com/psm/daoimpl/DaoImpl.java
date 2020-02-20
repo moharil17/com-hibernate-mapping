@@ -127,4 +127,54 @@ public class DaoImpl implements DaoApi {
 			return null;
 		}
 	}
+
+	public String getLoggedInUserName(String loggedInUserName) {
+
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("select userName from UserBean  where userUserName=:loggedInUserName")
+				.setParameter("loggedInUserName", loggedInUserName);
+		String UserName = (String) query.uniqueResult();
+		log.info(UserName);
+		return UserName;
+	}
+
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue) {
+		
+		Query query;
+		if ("mobileNo".equals(searchKey)) {
+			query = sessionFactory.getCurrentSession().createQuery("from EnquiryBean where mobileNo=:searchValue")
+					.setParameter("searchValue", searchValue);
+
+		} else { // earch by enquiryID
+			Integer searchEnquiryId = Integer.parseInt(searchValue);
+			query = sessionFactory.getCurrentSession()
+					.createQuery("from EnquiryBean where enquiry_id=:searchEnquiryId")
+					.setParameter("searchEnquiryId", searchEnquiryId);
+		}
+
+		EnquiryBean getDetails = (EnquiryBean) query.uniqueResult();
+		
+		// code to fetch enquiry createdBy user's name
+		int createdById = getDetails.getCreated_by();
+
+		query = sessionFactory.getCurrentSession()
+				.createQuery("select userName from UserBean where user_id=:createdById")
+				.setParameter("createdById", createdById);
+		String createdByUserName = (String) query.uniqueResult();
+		
+		getDetails.setUserName(createdByUserName);
+
+		return getDetails;
+	}
+
+	public boolean updateEnquiry(EnquiryBean bean) {
+		try {
+			sessionFactory.getCurrentSession().update(bean);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

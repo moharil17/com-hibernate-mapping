@@ -70,4 +70,20 @@ public class ServiceImpl implements ServiceApi {
 	public List<String> getStates() {
 		return dao.getStates();
 	}
+	
+public String getLoggedInUserName(String loggedInUserName) {
+		
+		return dao.getLoggedInUserName(loggedInUserName);
+
+	}
+
+	public EnquiryBean searchEnquiryDetails(String searchKey,String searchValue,String getUser) {
+		
+		return dao.searchEnquiryDetails(searchKey,searchValue);
+	}
+
+	public boolean updateEnquiry(EnquiryBean bean) {
+		
+		return dao.updateEnquiry(bean);
+	}
 }

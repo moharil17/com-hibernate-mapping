@@ -58,8 +58,6 @@ public class MainController {
 	@PostMapping("/createNewEnquiery")
 	public ResponseEntity<String> saveEnquiryeDetails(@ModelAttribute EnquiryBean bean) {
 
-		//java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		//bean.setDate(date);
 		Date todayDateTime = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String todayDateTimeString = sdf.format(todayDateTime);
@@ -108,6 +106,50 @@ public class MainController {
 
 		return list;
 	}
+
+	// Display name in nav bar
+	@GetMapping("/getLoggedInUserName")
+	public @ResponseBody String displayLoggedInUserName() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// we will get userUserName...
+		String loggedInUserName = authentication.getName();
+		String loggedInUserNameToDisplay = service.getLoggedInUserName(loggedInUserName);
+		return loggedInUserNameToDisplay;
+	}
+
+	@GetMapping("searchEnquiry/{searchKey}/{searchValue}")
+	public @ResponseBody EnquiryBean searchEnquieryDetails(@PathVariable String searchKey, @PathVariable String searchValue) {
+		
+		EnquiryBean bean = service.searchEnquiryDetails(searchKey, searchValue);
+		return bean;
+	}
+
+	public boolean updateEnquiry() {
+		EnquiryBean bean = new EnquiryBean();
+		Date todayDateTime = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String todayDateTimeString = sdf.format(todayDateTime);
+		bean.setEnquiryDate(todayDateTimeString);
+		bean.setEnquiry_id(68);
+		bean.setAdmssnToClass(2);
+		bean.setCity("bhilai");
+		bean.setEmailId("renu@gmail.com");
+        
+		bean.setFirstName("radha");
+		bean.setGender("female");
+		bean.setLastName("moharil");
+		bean.setMobileNo("7083913648");
+		bean.setPrevYrMarks(80);
+		// bean.setState("chhattisgarh");
+		// bean.setUserName("");
+		bean.setZip("85768476");
+		bean.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		log.info(bean);
+		boolean isUpdated = service.updateEnquiry(bean);
+		return true;
+	}
+
 	private Authentication getSecurityContextAuth() {
 		
 		return SecurityContextHolder.getContext().getAuthentication();
