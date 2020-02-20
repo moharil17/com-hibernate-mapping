@@ -17,4 +17,21 @@ $("#navMenuBar").ready(function() {
 					}
 				}
 			});
+			$.ajax({
+				url : "getLoggedInUserName",
+				type: "GET",
+				statusCode : {
+					200 : function(xhr) {
+						console.log(xhr);
+						/*<span class="navbar-text">
+					      Navbar text with an inline element
+					    </span>*/
+						$("#append").append('<li class="navbar-text" >Hi!  '+ xhr);
+					},
+				
+					500 : function(xhr) {
+						alert("Temporary error in appication. Have a tea break and come again! We will fix it for you. :P");
+					}
+				}
+			});
 });

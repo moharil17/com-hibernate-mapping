@@ -84,7 +84,7 @@ public class DaoImpl implements DaoApi {
 
 			}
 			return returnList;
-			
+
 		} catch (Exception e) {
 			log.info(e);
 		}
@@ -101,6 +101,7 @@ public class DaoImpl implements DaoApi {
 			int loggedUserId = (Integer) query.uniqueResult();
 
 			bean.setCreated_by(loggedUserId);
+			log.info(bean);
 			sessionFactory.getCurrentSession().save(bean);
 			return true;
 
@@ -109,12 +110,13 @@ public class DaoImpl implements DaoApi {
 			return false;
 		}
 	}
+
 	public List<String> getCitiesForState(int id) {
 		try {
-		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
-		return list;
-	}
-		catch (Exception e) {
+			List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id")
+					.setParameter("id", id).list();
+			return list;
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -127,4 +129,56 @@ public class DaoImpl implements DaoApi {
 			return null;
 		}
 	}
+
+	public String getLoggedInUserName(String loggedInUserName) {
+
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("select userName from UserBean  where userUserName=:loggedInUserName")
+				.setParameter("loggedInUserName", loggedInUserName);
+		String UserName = (String) query.uniqueResult();
+		log.info(UserName);
+		return UserName;
+	}
+
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue, String getUser) {
+		Query query;
+		EnquiryBean bean = new EnquiryBean();
+		if ("mobileNo".equals(searchKey)) {
+			query = sessionFactory.getCurrentSession().createQuery("from EnquiryBean where mobileNo=:searchValue")
+					.setParameter("searchValue", searchValue);
+
+		} else {
+			Integer searchEnquiryId = Integer.parseInt(searchValue);
+			int createdById = bean.getCreated_by();
+			query = sessionFactory.getCurrentSession()
+					.createQuery("from EnquiryBean where enquiry_id=:searchEnquiryId")
+					.setParameter("searchEnquiryId", searchEnquiryId);
+
+		}
+
+		
+		EnquiryBean getDetails = (EnquiryBean) query.uniqueResult();
+		
+		int createdById = getDetails.getCreated_by();
+		
+		query = sessionFactory.getCurrentSession()
+				.createQuery("select userName from UserBean where user_id=:createdById")
+				.setParameter("createdById", createdById);
+		String createdByUserName = (String) query.uniqueResult();
+		
+		getDetails.setCreatedByName(createdByUserName);
+		log.info(getDetails);
+		return getDetails;
+	}
+
+	public boolean updateEnquiry(EnquiryBean bean) {
+		try {
+			sessionFactory.getCurrentSession().update(bean);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
