@@ -45,17 +45,16 @@
 					</div>
 				</div>
 			</div>
-		</div>
+<!-- Cards end -->
 
-<!-- Modal and form - start -->
-		<div class="row">
+<!-- New enquiry Modal and form - start -->
 
 			<div class="modal fade" tabindex="-1" id="enquiryModal">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 
 							<div class="modal-header">
-								<h4 class="modal-title">New Enquiry</h4>
+								<h6 class="modal-title">New Enquiry</h6>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 							<div class="modal-body">
@@ -103,12 +102,8 @@
 											</select>
 										</div>
 									</div>
-									<!-- <div class="form-group">
-					<label for="inputAddress2">Address 2</label>
-					<input type="text" class="form-control-sm" id="inputAddress2">
-				</div> -->
 									<div class="form-row">
-									<div class="form-group col-md-3">
+										<div class="form-group col-md-3">
 											<label for="state">State</label> <select id="state"
 												class="form-control-sm" name="state">
 												<option value="" selected disabled>Please Select</option>
@@ -117,7 +112,7 @@
 										</div>
 										<div class="form-group col-md-5">
 											<label for="city">City</label> <select id="city"
-												class="form-control-sm" name="state">
+												class="form-control-sm" name="city">
 												<option value="" selected disabled>Please Select</option>
 												
 											</select>
@@ -125,13 +120,6 @@
 										<div class="form-group col-md-4">
 											<label for="zip">Zip</label> <input type="text"
 												class="form-control-sm" id="zip" name="zip">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox"
-												id="gridCheck"> <label class="form-check-label"
-												for="gridCheck"> Check me out </label>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -142,8 +130,110 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
+			
+			<div class="modal fade" tabindex="-1" id="updateEnquiryModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+							<div class="modal-header">
+								<h6 class="modal-title">View/Update Enquiry</h6>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<form action="enquiery" method="post" id="updateEnquiryForm">
+									<div class="form-row">
+										<div class="form-group col-md-5">
+											<label for="firstName">First Name</label> <input type="text"
+												class="form-control-sm" name="firstName">
+										</div>
+										<div class="form-group col-md-5">
+											<label for="lastName">Last Name</label> <input type="text"
+												class="form-control-sm" name="lastName">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<label for="gender">Gender</label> <select
+												class="form-control-sm" name="gender">
+												<option>Male</option>
+												<option>Female</option>
+											</select>
+										</div>
+										<div class="form-group col-md-5">
+											<label for="mobileNo">Mobile No.</label> <input type="text"
+												class="form-control-sm" name="mobileNo">
+										</div>
+										<div class="form-group col-md-4">
+											<label for="emailId">Email ID</label> <input type="email"
+												class="form-control-sm" name="emailId">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-5">
+											<label for="prevYrMarks">Prev. Year Score</label> <input
+												type="number" class="form-control-sm"
+												name="prevYrMarks" placeholder="">
+										</div>
+										<div class="form-group col-md-3"></div>
+										<div class="form-group col-md-4">
+											<label for="">Enquiry for Class</label> <select id="admssnToClass"
+												name="admssnToClass" class="form-control-sm">
+												<option value="" selected disabled>Please Select</option>
+												<option value = "1">1st</option>
+												<option value="2">2nd</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<label for="state">State</label> <select id="updateState"
+												class="form-control-sm" name="state">
+												<option value="" selected disabled>Please Select</option>
+												
+											</select>
+										</div>
+										<div class="form-group col-md-5">
+											<label for="city">City</label> <select id="updateCity"
+												class="form-control-sm" name="state">
+												<option value="" selected disabled>Please Select</option>
+												
+											</select>
+										</div>
+										<div class="form-group col-md-4">
+											<label for="zip">Zip</label> <input type="text"
+												class="form-control-sm" name="zip">
+										</div>
+									</div>
+									<!-- update enq row -->
+									<div class="form-row">
+										<div class="form-group col-md-4">
+											<label for="enquiry_id" class="col-md-5">Enquiry ID</label> <input type="text"
+												class="form-control-sm col-md-4" id="enquiry_id" name="enquiry_id" disabled>
+										</div>
+										<div class="form-group col-md-4">
+											<label for=""userName"">Enquiry taker</label> <input type="text" disabled
+												class="form-control-sm col-md-6" id="createdByName" name="userName">
+										</div>
+										<input type="number" class="form-control-sm" id="created_by" name="created_by" hidden />
+										<div class="form-group col-md-4">
+											<label for="enquiryDate">Enquired On</label> <input type="text" disabled
+												class="form-control-sm col-md-8" id="enquiryDate" name="enquiryDate">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-success">Update</button>
+									</div>
+								</form>
+							</div>
+					</div>
+				</div>
+			</div>
+			
 
 		</div>
-	</div>
 </body>
 </html>

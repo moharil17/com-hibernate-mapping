@@ -101,7 +101,6 @@ public class DaoImpl implements DaoApi {
 			int loggedUserId = (Integer) query.uniqueResult();
 
 			bean.setCreated_by(loggedUserId);
-			log.info(bean);
 			sessionFactory.getCurrentSession().save(bean);
 			return true;
 
@@ -113,10 +112,10 @@ public class DaoImpl implements DaoApi {
 
 	public List<String> getCitiesForState(int id) {
 		try {
-			List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id")
-					.setParameter("id", id).list();
-			return list;
-		} catch (Exception e) {
+		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
+		return list;
+	}
+		catch (Exception e) {
 			return null;
 		}
 	}
@@ -136,7 +135,6 @@ public class DaoImpl implements DaoApi {
 				.createQuery("select userName from UserBean  where userUserName=:loggedInUserName")
 				.setParameter("loggedInUserName", loggedInUserName);
 		String UserName = (String) query.uniqueResult();
-		log.info(UserName);
 		return UserName;
 	}
 
@@ -156,6 +154,9 @@ public class DaoImpl implements DaoApi {
 
 		EnquiryBean getDetails = (EnquiryBean) query.uniqueResult();
 		
+		if(getDetails == null)
+				return null;
+		
 		// code to fetch enquiry createdBy user's name
 		int createdById = getDetails.getCreated_by();
 
@@ -164,7 +165,7 @@ public class DaoImpl implements DaoApi {
 				.setParameter("createdById", createdById);
 		String createdByUserName = (String) query.uniqueResult();
 		
-	getDetails.setUserName(createdByUserName);
+		getDetails.setUserName(createdByUserName);
 
 		return getDetails;
 	}

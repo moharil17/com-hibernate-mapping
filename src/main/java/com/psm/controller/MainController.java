@@ -38,7 +38,7 @@ public class MainController {
 
 	@GetMapping("/homePage")
 	public String getHomePage() {
-		
+
 		return "homePage";
 	}
 
@@ -62,10 +62,10 @@ public class MainController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String todayDateTimeString = sdf.format(todayDateTime);
 		bean.setEnquiryDate(todayDateTimeString);
-
+		
 		// to save role id
 		bean.setUserName(getSecurityContextAuth().getName());
-		log.info(bean);
+
 		boolean isSaved = service.saveEnquiryDetails(bean);
 		if (isSaved)
 			return new ResponseEntity<String>("Enquiry saved successfully", HttpStatus.CREATED);
@@ -91,16 +91,16 @@ public class MainController {
 	@GetMapping("/getNavigationMenuItems")
 	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
-		List<String> list = (List) getSecurityContextAuth().getAuthorities(); // loggedUserInfo()
+		List<String> list = (List)getSecurityContextAuth().getAuthorities(); //loggedUserInfo()
 
-		// Sending logged in user's roles to DAO and gets back respective Menu Items
+		//Sending logged in user's roles to DAO and gets back respective Menu Items
 		List<MenuItemsBean> list1 = service.getUrlByRoles(list);
 		return list1;
 	}
 
 	// fetch logged-in user's roles from spring security context
 	private List<String> loggedInUserRoles() {
-
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		List<String> list = (List) authentication.getAuthorities();
 
@@ -118,22 +118,38 @@ public class MainController {
 		return loggedInUserNameToDisplay;
 	}
 
-	@GetMapping("searchEnquiry/{searchKey}/{searchValue}")
-	public @ResponseBody EnquiryBean searchEnquieryDetails(@PathVariable String searchKey, @PathVariable String searchValue) {
+	
+	/** searchEnquieryDetails:
+	 *  
+	 * Good request: "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/95"
+	 * But if user clicks search w/t entering search value, request will come like - 
+	 * "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/"
+	 * So we have to handle this also. hence taken two URL patterns in request mapping
+	 * 
+	 */	
+	@GetMapping(value= {"searchEnquiry/{searchKey}/{searchValue}", "searchEnquiry/{searchKey}"})
+	public ResponseEntity<EnquiryBean> searchEnquieryDetails(@PathVariable String searchKey, @PathVariable(required=false) String searchValue) {
+
+		if(searchValue == null)
+			return new ResponseEntity("Enter search value", HttpStatus.BAD_REQUEST);
+		if("enquiryId".equals(searchKey) && searchValue.length() > 5)
+			return new ResponseEntity("Enquiery ID length violated", HttpStatus.NOT_ACCEPTABLE);
 		
 		EnquiryBean bean = service.searchEnquiryDetails(searchKey, searchValue);
-		return bean;
+		
+		if(bean != null)
+			return new ResponseEntity(bean, HttpStatus.OK);
+		return new ResponseEntity("No results found", HttpStatus.NOT_IMPLEMENTED);
 	}
 
 	public boolean updateEnquiry() {
 		EnquiryBean bean = new EnquiryBean();
-		Date todayDateTime = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String todayDateTimeString = sdf.format(todayDateTime);
-		bean.setEnquiryDate(todayDateTimeString);
+		
+		bean.setEnquiryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		
 		bean.setEnquiry_id(68);
 		bean.setAdmssnToClass(2);
-		bean.setCity("bhilai");
+		bean.setCity(1);
 		bean.setEmailId("renu@gmail.com");
         
 		bean.setFirstName("radha");
