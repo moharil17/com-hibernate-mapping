@@ -35,6 +35,7 @@
 					<div class="card-header font-weight-bold">Search Enquiry</div>
 					<div class="card-body">
 						<select class="form-control">
+							<option value="" selected disabled>Please Select</option>
 							<option value="enquiryId">Enquiry ID</option>
 							<option value="mobileNo">Mobile No.</option>
 						</select><p></p>
@@ -73,8 +74,9 @@
 										<div class="form-group col-md-3">
 											<label for="gender">Gender</label> <select id="gender"
 												class="form-control-sm" name="gender">
-												<option>Male</option>
-												<option>Female</option>
+												<option value="" selected disabled>Please Select</option>
+												<option value="F">Female</option>
+												<option value="M">Male</option>
 											</select>
 										</div>
 										<div class="form-group col-md-5">
@@ -96,9 +98,9 @@
 										<div class="form-group col-md-4">
 											<label for="">Enquiry for Class</label> <select
 												id="admssnToClass" name="admssnToClass" class="form-control-sm">
-												<!-- <option value="" selected disabled>Please Select</option> -->
+												<option value="" selected disabled>Please Select</option>
 												<option value = "1">1st</option>
-												<option value="2">2nd</option>
+												<option value = "2">2nd</option>
 											</select>
 										</div>
 									</div>
@@ -159,8 +161,9 @@
 										<div class="form-group col-md-3">
 											<label for="gender">Gender</label> <select
 												class="form-control-sm" name="gender">
-												<option>Male</option>
-												<option>Female</option>
+												<option value="" selected disabled>Please Select</option>
+												<option value="F">Female</option>
+												<option value="M">Male</option>
 											</select>
 										</div>
 										<div class="form-group col-md-5">
@@ -180,11 +183,11 @@
 										</div>
 										<div class="form-group col-md-3"></div>
 										<div class="form-group col-md-4">
-											<label for="">Enquiry for Class</label> <select id="admssnToClass"
+											<label for="">Enquiry for Class</label> <select id="updateAdmssnToClass"
 												name="admssnToClass" class="form-control-sm">
 												<option value="" selected disabled>Please Select</option>
 												<option value = "1">1st</option>
-												<option value="2">2nd</option>
+												<option value = "2">2nd</option>
 											</select>
 										</div>
 									</div>
@@ -198,7 +201,7 @@
 										</div>
 										<div class="form-group col-md-5">
 											<label for="city">City</label> <select id="updateCity"
-												class="form-control-sm" name="state">
+												class="form-control-sm" name="city">
 												<option value="" selected disabled>Please Select</option>
 												
 											</select>
@@ -212,7 +215,7 @@
 									<div class="form-row">
 										<div class="form-group col-md-4">
 											<label for="enquiry_id" class="col-md-5">Enquiry ID</label> <input type="text"
-												class="form-control-sm col-md-4" id="enquiry_id" name="enquiry_id" disabled>
+												class="form-control-sm col-md-4" id="enquiry_id" name="enquiry_id" readonly>
 										</div>
 										<div class="form-group col-md-4">
 											<label for=""userName"">Enquiry taker</label> <input type="text" disabled
@@ -220,12 +223,12 @@
 										</div>
 										<input type="number" class="form-control-sm" id="created_by" name="created_by" hidden />
 										<div class="form-group col-md-4">
-											<label for="enquiryDate">Enquired On</label> <input type="text" disabled
+											<label for="enquiryDate">Enquired On</label> <input type="text" readonly
 												class="form-control-sm col-md-8" id="enquiryDate" name="enquiryDate">
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="submit" class="btn btn-success">Update</button>
+										<button type="submit" id="updateEnquirySubBtn" class="btn btn-success">Update</button>
 									</div>
 								</form>
 							</div>

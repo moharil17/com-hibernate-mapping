@@ -35,7 +35,7 @@ public class DaoImpl implements DaoApi {
 		}
 
 		List<UserBean> list = new ArrayList<UserBean>();
-		log.info("Username in dao " + username);
+
 		list = sessionFactory.getCurrentSession().createQuery("from UserBean where userUserName=:username")
 				.setParameter("username", username).list();
 
@@ -101,6 +101,7 @@ public class DaoImpl implements DaoApi {
 			int loggedUserId = (Integer) query.uniqueResult();
 
 			bean.setCreated_by(loggedUserId);
+			// save enquiry
 			sessionFactory.getCurrentSession().save(bean);
 			return true;
 
@@ -109,7 +110,7 @@ public class DaoImpl implements DaoApi {
 			return false;
 		}
 	}
-
+	
 	public List<String> getCitiesForState(int id) {
 		try {
 		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
