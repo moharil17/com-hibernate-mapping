@@ -164,6 +164,7 @@ public class MainController {
 		log.info(bean);
 		boolean isUpdated = service.updateEnquiry(bean);
 		return true;
+		
 	}
 
 	private Authentication getSecurityContextAuth() {
