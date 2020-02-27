@@ -30,13 +30,12 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 			http
 	        .authorizeRequests()
 	        .antMatchers("/static-resources/**").permitAll()
-		    .antMatchers("/homePage").access("hasRole('ROLE_1')")
-		    .antMatchers("/enquiery").hasRole("1")
-		    //.antMatchers("/enquiery").hasAnyRole("1","2","3")
-		 //   .antMatchers("/Users_Details_report").hasRole("DBA")
-		 //   .antMatchers("/reportsPage").hasAnyRole("ADMIN","DBA")
+		  //  .antMatchers("/homePage").access("hasRole('ROLE_1')")
+		  //  .antMatchers("/enquiery").hasRole("1")
+	        .antMatchers("/admission").hasRole("4")
+	        .antMatchers("/homePage").hasAnyRole("1","2","3","4","5") //home page is for everyone
+		    .antMatchers("/enquiery").hasAnyRole("1","2","3","4","5") //anyone can take inquiry
 		 //   .antMatchers("/viewUsers").access("hasRole('ROLE_ADMIN')")
-		    .antMatchers("/generateReport").hasAnyRole("principal")
 	        .and()
 		    //login
 		    .formLogin().loginPage("/loginPage")
