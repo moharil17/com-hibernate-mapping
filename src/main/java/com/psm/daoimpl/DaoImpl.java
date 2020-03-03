@@ -1,5 +1,6 @@
 package com.psm.daoimpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.psm.daoapi.DaoApi;
+import com.psm.entities.AdmissionBean;
 import com.psm.entities.EnquiryBean;
+import com.psm.entities.FeesDetails;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
@@ -110,13 +113,13 @@ public class DaoImpl implements DaoApi {
 			return false;
 		}
 	}
-	
+
 	public List<String> getCitiesForState(int id) {
 		try {
-		List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id").setParameter("id", id).list();
-		return list;
-	}
-		catch (Exception e) {
+			List<String> list = sessionFactory.getCurrentSession().createQuery("from CityBean where state_id=:id")
+					.setParameter("id", id).list();
+			return list;
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -140,7 +143,7 @@ public class DaoImpl implements DaoApi {
 	}
 
 	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue) {
-		
+
 		Query query;
 		if ("mobileNo".equals(searchKey)) {
 			query = sessionFactory.getCurrentSession().createQuery("from EnquiryBean where mobileNo=:searchValue")
@@ -148,16 +151,15 @@ public class DaoImpl implements DaoApi {
 
 		} else { // earch by enquiryID
 			Integer searchEnquiryId = Integer.parseInt(searchValue);
-			query = sessionFactory.getCurrentSession()
-					.createQuery("from EnquiryBean where enquiry_id=:searchEnquiryId")
+			query = sessionFactory.getCurrentSession().createQuery("from EnquiryBean where enquiry_id=:searchEnquiryId")
 					.setParameter("searchEnquiryId", searchEnquiryId);
 		}
 
 		EnquiryBean getDetails = (EnquiryBean) query.uniqueResult();
-		
-		if(getDetails == null)
-				return null;
-		
+
+		if (getDetails == null)
+			return null;
+
 		// code to fetch enquiry createdBy user's name
 		int createdById = getDetails.getCreated_by();
 
@@ -165,7 +167,7 @@ public class DaoImpl implements DaoApi {
 				.createQuery("select userName from UserBean where user_id=:createdById")
 				.setParameter("createdById", createdById);
 		String createdByUserName = (String) query.uniqueResult();
-		
+
 		getDetails.setUserName(createdByUserName);
 
 		return getDetails;
@@ -179,6 +181,46 @@ public class DaoImpl implements DaoApi {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public boolean saveAdmission(AdmissionBean bean) {
+
+		FeesDetails feesDetails = new FeesDetails();
+		try {
+
+			String loggedUserName = bean.getUserName();
+
+			Query query = sessionFactory.getCurrentSession()
+					.createQuery("select user_id from UserBean  where userUserName=:loggedUserName")
+					.setParameter("loggedUserName", loggedUserName);
+			int userId = (Integer) query.uniqueResult();
+
+			// Get user name to set createdBy id column in admission table
+			bean.setCreated_by(userId);
+			sessionFactory.getCurrentSession().persist(bean);
+
+			// Get Paid_fees and standard values from admission bean and then save theses
+			// values to
+			// Fees_details table
+			double Totalfees = bean.getTotalFees();
+			int standard = bean.getAdmssnToClass();
+			int enquiryId = bean.getEnquiry_id();
+
+			// Get student id
+			Query query1 = sessionFactory.getCurrentSession()
+					.createQuery("select student_id from AdmissionBean where enquiry_id=:enquiryId")
+					.setParameter("enquiryId", enquiryId);
+			int student_id = (Integer) query1.uniqueResult();
+
+			feesDetails.setStandard(standard);
+			feesDetails.setTotalFees(Totalfees);
+			feesDetails.setStudent_id(student_id);
+
+			sessionFactory.getCurrentSession().save(feesDetails);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

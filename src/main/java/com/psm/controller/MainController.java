@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.psm.entities.AdmissionBean;
 import com.psm.entities.CityBean;
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
@@ -62,7 +63,7 @@ public class MainController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String todayDateTimeString = sdf.format(todayDateTime);
 		bean.setEnquiryDate(todayDateTimeString);
-		
+
 		// to save role id
 		bean.setUserName(getSecurityContextAuth().getName());
 
@@ -91,16 +92,16 @@ public class MainController {
 	@GetMapping("/getNavigationMenuItems")
 	public @ResponseBody List<MenuItemsBean> fetchNavigationMenuItems() {
 
-		List<String> list = (List)getSecurityContextAuth().getAuthorities(); //loggedUserInfo()
+		List<String> list = (List) getSecurityContextAuth().getAuthorities(); // loggedUserInfo()
 
-		//Sending logged in user's roles to DAO and gets back respective Menu Items
+		// Sending logged in user's roles to DAO and gets back respective Menu Items
 		List<MenuItemsBean> list1 = service.getUrlByRoles(list);
 		return list1;
 	}
 
 	// fetch logged-in user's roles from spring security context
 	private List<String> loggedInUserRoles() {
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		List<String> list = (List) authentication.getAuthorities();
 
@@ -118,53 +119,44 @@ public class MainController {
 		return loggedInUserNameToDisplay;
 	}
 
-	
-	/** searchEnquieryDetails:
-	 *  
-	 * Good request: "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/95"
-	 * But if user clicks search w/t entering search value, request will come like - 
-	 * "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/"
-	 * So we have to handle this also. hence taken two URL patterns in request mapping
+	/**
+	 * searchEnquieryDetails:
 	 * 
-	 */	
-	@GetMapping(value= {"searchEnquiry/{searchKey}/{searchValue}", "searchEnquiry/{searchKey}"})
-	public ResponseEntity<EnquiryBean> searchEnquieryDetails(@PathVariable String searchKey, @PathVariable(required=false) String searchValue) {
+	 * Good request:
+	 * "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/95" But
+	 * if user clicks search w/t entering search value, request will come like -
+	 * "http://localhost:8080/com-hibernate-mapping/searchEnquiry/enquiryId/" So we
+	 * have to handle this also. hence taken two URL patterns in request mapping
+	 * 
+	 */
+	@GetMapping(value = { "searchEnquiry/{searchKey}/{searchValue}", "searchEnquiry/{searchKey}" })
+	public ResponseEntity<EnquiryBean> searchEnquieryDetails(@PathVariable String searchKey,
+			@PathVariable(required = false) String searchValue) {
 
-		if(searchValue == null)
+		if (searchValue == null)
 			return new ResponseEntity("Enter search value", HttpStatus.BAD_REQUEST);
-		if("enquiryId".equals(searchKey) && searchValue.length() > 5)
+		if ("enquiryId".equals(searchKey) && searchValue.length() > 5)
 			return new ResponseEntity("Enquiery ID length violated", HttpStatus.NOT_ACCEPTABLE);
-		
+
 		EnquiryBean bean = service.searchEnquiryDetails(searchKey, searchValue);
-		
-		if(bean != null)
+
+		if (bean != null)
 			return new ResponseEntity(bean, HttpStatus.OK);
 		return new ResponseEntity("No results found", HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	public boolean updateEnquiry() {
-		EnquiryBean bean = new EnquiryBean();
-		
-		bean.setEnquiryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		
-		bean.setEnquiry_id(68);
-		bean.setAdmssnToClass(2);
-		bean.setCity(1);
-		bean.setEmailId("renu@gmail.com");
-        
-		bean.setFirstName("radha");
-		bean.setGender("female");
-		bean.setLastName("moharil");
-		bean.setMobileNo("7083913648");
-		bean.setPrevYrMarks(80);
-		// bean.setState("chhattisgarh");
-		// bean.setUserName("");
-		bean.setZip("85768476");
-		bean.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		log.info(bean);
-		boolean isUpdated = service.updateEnquiry(bean);
-		return true;
-		
+	@PostMapping("/saveAdmission")
+	public boolean saveAdmission(@ModelAttribute AdmissionBean bean) {
+		String userName = getSecurityContextAuth().getName();
+		bean.setUserName(userName);
+
+		boolean isSaved = service.saveAdmission(bean);
+		if (isSaved) {
+			log.info("successfully saved");
+			return true;
+		}
+
+		return false;
 	}
 
 	private Authentication getSecurityContextAuth() {

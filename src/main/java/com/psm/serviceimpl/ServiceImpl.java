@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.psm.daoapi.DaoApi;
 import com.psm.daoimpl.DaoImpl;
+import com.psm.entities.AdmissionBean;
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
@@ -43,11 +44,11 @@ public class ServiceImpl implements ServiceApi {
 
 		List<String> roleIDs = new ArrayList();
 		Iterator i = role.iterator();
-		
+
 		while (i.hasNext()) {
-			
+
 			String roleString = i.next().toString();
-		//	roleString = roleString.substring(4);
+			// roleString = roleString.substring(4);
 			roleString = roleString.substring(roleString.indexOf('_') + 1, roleString.length());
 			roleIDs.add(roleString);
 		}
@@ -63,27 +64,32 @@ public class ServiceImpl implements ServiceApi {
 	}
 
 	public List<String> getCitiesForState(int id) {
-		
+
 		return dao.getCitiesForState(id);
 	}
-	
+
 	public List<String> getStates() {
 		return dao.getStates();
 	}
-	
-public String getLoggedInUserName(String loggedInUserName) {
-		
+
+	public String getLoggedInUserName(String loggedInUserName) {
+
 		return dao.getLoggedInUserName(loggedInUserName);
 
 	}
 
-	public EnquiryBean searchEnquiryDetails(String searchKey,String searchValue) {
-		
-		return dao.searchEnquiryDetails(searchKey,searchValue);
+	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue) {
+
+		return dao.searchEnquiryDetails(searchKey, searchValue);
 	}
 
 	public boolean updateEnquiry(EnquiryBean bean) {
-		
+
 		return dao.updateEnquiry(bean);
+	}
+
+	public boolean saveAdmission(AdmissionBean bean) {
+
+		return dao.saveAdmission(bean);
 	}
 }

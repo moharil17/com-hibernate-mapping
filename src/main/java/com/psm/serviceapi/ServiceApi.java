@@ -2,6 +2,7 @@ package com.psm.serviceapi;
 
 import java.util.List;
 
+import com.psm.entities.AdmissionBean;
 import com.psm.entities.EnquiryBean;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
@@ -28,4 +29,6 @@ public interface ServiceApi {
 	public EnquiryBean searchEnquiryDetails(String searchKey, String searchValue);
 
 	public boolean updateEnquiry(EnquiryBean bean);
+
+	public boolean saveAdmission(AdmissionBean bean);
 }
