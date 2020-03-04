@@ -146,17 +146,17 @@ public class MainController {
 	}
 
 	@PostMapping("/saveAdmission")
-	public boolean saveAdmission(@ModelAttribute AdmissionBean bean) {
+	public ResponseEntity<String> saveAdmission(@ModelAttribute AdmissionBean bean) {
 		String userName = getSecurityContextAuth().getName();
 		bean.setUserName(userName);
 
 		boolean isSaved = service.saveAdmission(bean);
 		if (isSaved) {
 			log.info("successfully saved");
-			return true;
+			return new ResponseEntity<String>("Saved Successfully", HttpStatus.CREATED);
 		}
 
-		return false;
+		return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 	}
 
 	private Authentication getSecurityContextAuth() {
