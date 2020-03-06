@@ -29,6 +29,13 @@ public class FeesDetails implements Serializable {
 	@Column(name = "total_fees")
 	private double totalFees;
 
+	public FeesDetails() {
+		
+	}
+	public FeesDetails(int student_id,int standard) {
+		this.student_id = student_id;
+		this.standard = standard;
+	}
 	public int getStudent_id() {
 		return student_id;
 	}

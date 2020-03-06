@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.psm.daoapi.DaoApi;
 import com.psm.entities.AdmissionBean;
 import com.psm.entities.CityBean;
 import com.psm.entities.EnquiryBean;
+import com.psm.entities.FeesDetails;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StateBean;
+import com.psm.entities.table;
 import com.psm.serviceapi.ServiceApi;
 
 @Controller
@@ -36,6 +39,9 @@ public class MainController {
 
 	@Autowired
 	ServiceApi service;
+
+	@Autowired
+	DaoApi dao;
 
 	@GetMapping("/homePage")
 	public String getHomePage() {
@@ -148,15 +154,33 @@ public class MainController {
 	@PostMapping("/saveAdmission")
 	public ResponseEntity<String> saveAdmission(@ModelAttribute AdmissionBean bean) {
 		String userName = getSecurityContextAuth().getName();
+		List listOfRole = (List) getSecurityContextAuth().getAuthorities();
 		bean.setUserName(userName);
+		bean.setRoleList(listOfRole);
+		String result = service.saveAdmission(bean);
+		log.info(result);
+		if (result == "successfullySaved") {
 
-		boolean isSaved = service.saveAdmission(bean);
-		if (isSaved) {
-			log.info("successfully saved");
 			return new ResponseEntity<String>("Saved Successfully", HttpStatus.CREATED);
+		} else if (result == "fess shoud be less than decleared Fees") {
+			return new ResponseEntity<String>("please Enter Valid Fees", HttpStatus.BAD_REQUEST);
+		} else if (result == "Discount Limit Crossed") {
+			return new ResponseEntity<String>("Discount Not Allowed", HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<String>("Error Saving Admission", HttpStatus.BAD_REQUEST);
+	}
 
-		return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
+	@PostMapping("/payment")
+	public ResponseEntity<String> feePayment(@ModelAttribute FeesDetails feeDetailBean) {
+
+		String result = service.feePayment(feeDetailBean);
+
+		if (result.equals("Payment SuccessFull"))
+			return new ResponseEntity<String>("payment successfull", HttpStatus.OK);
+
+		else if (result.equals("PaymentFailed"))
+			return new ResponseEntity<String>("payment fail", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("This much Fees Remaning to be Paid " + result, HttpStatus.OK);
 	}
 
 	private Authentication getSecurityContextAuth() {
@@ -171,5 +195,4 @@ public class MainController {
 
 		return "homePage";
 	}
-
 }

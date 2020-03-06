@@ -13,6 +13,7 @@ import com.psm.daoapi.DaoApi;
 import com.psm.daoimpl.DaoImpl;
 import com.psm.entities.AdmissionBean;
 import com.psm.entities.EnquiryBean;
+import com.psm.entities.FeesDetails;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
@@ -23,7 +24,7 @@ public class ServiceImpl implements ServiceApi {
 
 	@Autowired
 	DaoApi dao;
-	protected final static Log log = LogFactory.getLog(DaoImpl.class);
+	protected final static Log log = LogFactory.getLog(ServiceImpl.class);
 
 	public UserBean getUserByUsername(String username) {
 
@@ -88,8 +89,74 @@ public class ServiceImpl implements ServiceApi {
 		return dao.updateEnquiry(bean);
 	}
 
-	public boolean saveAdmission(AdmissionBean bean) {
+	public String saveAdmission(AdmissionBean bean) {
+		double feesInputFomUser = bean.getTotalFees();
+		int standard = bean.getAdmssnToClass();
 
-		return dao.saveAdmission(bean);
+		double declearedFeesForStandrad = dao.fetchFeesForStandard(standard);
+		boolean isvaliated = false;
+		if (declearedFeesForStandrad > 0 && feesInputFomUser <= declearedFeesForStandrad) {
+			// Calculate Discount
+
+			int requestedDiscount = (int) (((declearedFeesForStandrad - feesInputFomUser) / declearedFeesForStandrad)
+					* 100);
+			String userName = bean.getUserName();
+			List list = bean.getRoleList();
+
+			List<Integer> roleIDs = new ArrayList();
+			Iterator i = list.iterator();
+
+			while (i.hasNext()) {
+
+				String roleString = i.next().toString();
+				// roleString = roleString.substring(4);
+				roleString = roleString.substring(roleString.indexOf('_') + 1, roleString.length());
+				int roleId = Integer.parseInt(roleString);
+				roleIDs.add(roleId);
+			}
+			int roleId = roleIDs.get(0);
+
+			int allowedDiscount = dao.getAllowedDiscount(userName, roleId);
+			if (requestedDiscount <= allowedDiscount) {
+				isvaliated = true;
+			} else
+
+				return "Discount Limit Crossed";
+
+		} else {
+			return "fess shoud be less than decleared Fees";
+		}
+
+		if (isvaliated) {
+			dao.saveAdmission(bean);
+			return "successfullySaved";
+		}
+		return "falied";
+	}
+
+	public String feePayment(FeesDetails feesDetailsBean) {
+
+		double payingFee = feesDetailsBean.getPaidFees();
+		int studentId = feesDetailsBean.getStudent_id();
+		int standard = feesDetailsBean.getStandard();
+
+		FeesDetails details = dao.getDeclaredFeeAndStandard(studentId, standard);
+
+		double AlreadyPaidfee = details.getPaidFees();
+		double standardFeeApplied = details.getTotalFees();
+
+		double sumOfPayingFeeAndAlreadyPaid = payingFee + AlreadyPaidfee;
+
+		if (sumOfPayingFeeAndAlreadyPaid <= standardFeeApplied) {
+			feesDetailsBean.setPaidFees(sumOfPayingFeeAndAlreadyPaid);
+			feesDetailsBean.setStudent_id(studentId);
+			dao.saveFee(feesDetailsBean);
+			return "Payment SuccessFull";
+		} else if (sumOfPayingFeeAndAlreadyPaid > standardFeeApplied) {
+			double remainingAmountToBePaid = standardFeeApplied - AlreadyPaidfee;
+			String RemainingAmountToBePaid = Double.toString(remainingAmountToBePaid);
+			return RemainingAmountToBePaid;
+		}
+		return "PaymentFailed";
 	}
 }

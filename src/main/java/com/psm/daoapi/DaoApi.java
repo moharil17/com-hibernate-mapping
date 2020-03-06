@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.psm.entities.AdmissionBean;
 import com.psm.entities.EnquiryBean;
+import com.psm.entities.FeesDetails;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
+import com.psm.entities.table;
 
 public interface DaoApi {
 
@@ -31,4 +33,12 @@ public interface DaoApi {
 	public boolean updateEnquiry(EnquiryBean bean);
 
 	public boolean saveAdmission(AdmissionBean bean);
+
+	public double fetchFeesForStandard(int standard);
+
+	public int getAllowedDiscount(String userName, int roleId);
+
+	public FeesDetails getDeclaredFeeAndStandard(int StudentId, int standard);
+
+	public boolean saveFee(FeesDetails bean);
 }

@@ -1,6 +1,7 @@
 package com.psm.entities;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,6 +62,18 @@ public class AdmissionBean {
 
 	@Transient
 	private double totalFees;
+
+	@Transient
+	private List roleList;
+	
+	
+	public List getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List roleList) {
+		this.roleList = roleList;
+	}
 
 	public double getTotalFees() {
 		return totalFees;
@@ -196,7 +209,8 @@ public class AdmissionBean {
 				+ ", gender=" + gender + ", mobileNo=" + mobileNo + ", emailId=" + emailId + ", admssnToClass="
 				+ admssnToClass + ", state=" + state + ", zip=" + zip + ", city=" + city + ", createdOnDate="
 				+ createdOnDate + ", created_by=" + created_by + ", enquiry_id=" + enquiry_id + ", userName=" + userName
-				+ "]";
+				+ ", paid_fees=" + paid_fees + ", totalFees=" + totalFees + ", roleList=" + roleList + "]";
 	}
 
+	
 }

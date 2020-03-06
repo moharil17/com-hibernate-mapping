@@ -7,8 +7,10 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,7 @@ import com.psm.entities.FeesDetails;
 import com.psm.entities.MenuItemsBean;
 import com.psm.entities.StudentBean;
 import com.psm.entities.UserBean;
+import com.psm.entities.table;
 
 @Transactional
 @Repository
@@ -191,12 +194,13 @@ public class DaoImpl implements DaoApi {
 			String loggedUserName = bean.getUserName();
 
 			Query query = sessionFactory.getCurrentSession()
-					.createQuery("select user_id from UserBean  where userUserName=:loggedUserName")
+					.createQuery("select user_id from UserBean  where userName=:loggedUserName")
 					.setParameter("loggedUserName", loggedUserName);
 			int userId = (Integer) query.uniqueResult();
 
 			// Get user name to set createdBy id column in admission table
-			bean.setCreated_by(userId);
+			// bean.setCreated_by(userId);
+
 			sessionFactory.getCurrentSession().persist(bean);
 
 			// Get Paid_fees and standard values from admission bean and then save theses
@@ -219,8 +223,69 @@ public class DaoImpl implements DaoApi {
 			sessionFactory.getCurrentSession().save(feesDetails);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
+	public double fetchFeesForStandard(int standard) {
+		try {
+
+			Query query = sessionFactory.getCurrentSession()
+					.createQuery("select declaredFees from FeesStructure where standard=:standard")
+					.setParameter("standard", standard);
+
+			double declearedStandradFees = (Double) query.uniqueResult();
+
+			return declearedStandradFees;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int getAllowedDiscount(String userName, int roleId) {
+		try {
+			// Get loggedin username
+			Query query = sessionFactory.getCurrentSession()
+					.createQuery("select user_id from UserBean  where userName=:userName")
+					.setParameter("userName", userName);
+			int userId = (Integer) query.uniqueResult();
+			log.info("userId" + userId);
+
+			Query query1 = sessionFactory.getCurrentSession()
+					.createQuery("select discountPercentage from DiscountBean where role=:roleId")
+					.setParameter("roleId", roleId);
+			int userRoleId = (Integer) query1.uniqueResult();
+			log.info(userRoleId);
+			return userRoleId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public FeesDetails getDeclaredFeeAndStandard(int StudentId, int standard) {
+		FeesDetails feeDetails = sessionFactory.getCurrentSession().get(FeesDetails.class,
+				new FeesDetails(StudentId, standard));
+
+		return feeDetails;
+	}
+
+	public boolean saveFee(FeesDetails FeesDetailsBean) {
+		try {
+			double paidFees = FeesDetailsBean.getPaidFees();
+			log.info(paidFees);
+			int studentId = FeesDetailsBean.getStudent_id();
+			Query query = sessionFactory.getCurrentSession()
+					.createQuery("update FeesDetails set paidFees=:totalFees where student_id=:studentId ")
+					.setParameter("totalFees", paidFees).setParameter("studentId", studentId);
+			int res = query.executeUpdate();
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
